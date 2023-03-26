@@ -11,6 +11,7 @@ public void setBaht(Integer b){
 this.baht = b;
 }
 public Integer getBaht(){
+int i = i + this.bath;
 return baht;
 }
 
