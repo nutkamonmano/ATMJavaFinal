@@ -3,7 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 class MainATM {
+    static final int size = 10;
 	static MainATM OS = new MainATM();
+    static int countA = 0;
+    Accounts []A = new Accounts[size];
 	
     public static void main(String[] args){
         OS.createStartupWindow();
@@ -52,10 +55,12 @@ class MainATM {
                 String ID = id.getText();
                 String NAME = name.getText();
                 String PASS = pass.getText();
-                Accounts A1 = new Accounts(ID, NAME, PASS);
+                A[countA] = new Accounts(ID, NAME, PASS);
 
-                String sout = "Account ID : "+A1.getAccID()+"\nAccount Name : "+A1.getAccName()+"\nPassword : "+A1.getPassword();
+                String sout = "Account ID : "+A[countA].getAccID()+"\nAccount Name : "+A[countA].getAccName()+"\nPassword : "+A[countA].getPassword();
                 JOptionPane.showMessageDialog(null, sout);
+
+                countA += 1;
             }
         });
 
@@ -65,5 +70,6 @@ class MainATM {
         regisFrame.setLocationRelativeTo(null);
         regisFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         regisFrame.setVisible(true);
+        regisFrame.dispose();
     }
 }
