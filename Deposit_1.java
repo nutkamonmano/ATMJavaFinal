@@ -37,7 +37,7 @@ class Deposit_1 {
 
 	public void Inputdeposit(){
 	int d,t;
-	int u,sum=0;
+	int sum=0;
 	t = Integer.parseInt(JOptionPane.showInputDialog("Input Deposit"));
 
 	for(int i=0;i<count;i++){
