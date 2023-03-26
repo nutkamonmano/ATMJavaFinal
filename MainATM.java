@@ -6,7 +6,7 @@ class MainATM {
     static final int size = 10;
 	static MainATM OS = new MainATM();
     static int countA = 0;
-    Accounts []A = new Accounts[size];
+    static Accounts []A = new Accounts[size];
 	
     public static void main(String[] args){
         OS.createStartupWindow();
@@ -56,11 +56,7 @@ class MainATM {
                 String NAME = name.getText();
                 String PASS = pass.getText();
                 A[countA] = new Accounts(ID, NAME, PASS);
-
-                String sout = "Account ID : "+A[countA].getAccID()+"\nAccount Name : "+A[countA].getAccName()+"\nPassword : "+A[countA].getPassword();
-                JOptionPane.showMessageDialog(null, sout);
-
-                countA += 1;
+                regisFrame.dispose();
             }
         });
 
@@ -70,6 +66,5 @@ class MainATM {
         regisFrame.setLocationRelativeTo(null);
         regisFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         regisFrame.setVisible(true);
-        regisFrame.dispose();
     }
 }
