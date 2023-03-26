@@ -1,12 +1,12 @@
 class Accounts {
-    static final int acc_size = 10;
-    static int countA = 0;
+    static final int ACC_SIZE = 10;
     
-    static Accounts []A = new Accounts[acc_size];
+    static Accounts []acc = new Accounts[10];
 
     public static void main(String[] args){
-        A[1] = new Accounts("651435", "Nutkamon Manosatcharak");
-        System.out.println(A[1]);
+        double bal1 = 25000;
+        acc[0] = new Accounts("651435", "Nutkamon Manosatcharak", bal1);
+        System.out.println(acc[0]);
     }
 
     Accounts(){}
