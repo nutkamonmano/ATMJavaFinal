@@ -1,14 +1,4 @@
 class Accounts {
-    static final int ACC_SIZE = 10;
-    
-    static Accounts []acc = new Accounts[10];
-
-    public static void main(String[] args){
-        double bal1 = 25000;
-        acc[0] = new Accounts("651435", "Nutkamon Manosatcharak", bal1);
-        System.out.println(acc[0]);
-    }
-
     Accounts(){}
     Accounts(String accID, String accName, Double balance){
         this.accID = accID;
