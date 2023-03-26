@@ -1,7 +1,7 @@
 public abstract class Bank {
 
-	public abstract Integer caldeposit();
+	public abstract int caldeposit();
 
-	public abstract Integer calwithdarw();
+	public abstract int calwithdarw();
 	
 }

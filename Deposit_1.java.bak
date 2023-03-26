@@ -1,7 +1,7 @@
 import javax.swing.JOptionPane;
 class Deposit_1 {
 	static Deposit_1 D = new Deposit_1();
-	static Deposit []p = new Deposit[1000];
+	static Bank DBeht,WBeht;
 	static int count=0;
 	
 	public static void main(String[] args){
@@ -36,39 +36,14 @@ class Deposit_1 {
 
 
 	public void Inputdeposit(){
-	int d,t;
-	int u,sum=0;
-	t = Integer.parseInt(JOptionPane.showInputDialog("Input Deposit"));
-
-	for(int i=0;i<count;i++){
-		if(t==1000){
-			sum =+ t;
-			
+	int d;
+	d = Integer.parseInt(JOptionPane.showInputDialog("Input deposit"));
+	DBeht = new Deposit(d);
 	}
-		else if(t==500){
-			sum =+ t;
-			
-	}
-		else if(t==100){
-			sum =+ t;
-			
-	}	
-		else{
-			System.out.println("can not deposit");
-	}
-
-	}
-	count++;
-	d = sum;
-	p[count] = new Deposit(d);
-	
-}
 	
 	public void show(){
 	String output = "********Deposit********";
-	for(int i=0;i<count;i++){
-	output += "\nDeposit"+p[i].getBaht();
-	}
+	output += "\n Deposit" + Deposit.caldeposit();
 	JOptionPane.showMessageDialog(null,output);
 	
 	}
