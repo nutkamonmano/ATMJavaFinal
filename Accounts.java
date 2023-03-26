@@ -6,7 +6,22 @@ class Accounts {
         this.balance = balance;
     }
 
+    Accounts(String accID, String accName, String password){
+        this.accID = accID;
+        this.accName = accName;
+        this.password = password;
+    }
+
     //Attributes and Operators Below
+    protected String password;
+    
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     protected String accID;
     public String getAccID() {
         return accID;
