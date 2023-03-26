@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 class MainATM {
 	static MainATM OS = new MainATM();
 	
@@ -41,6 +43,21 @@ class MainATM {
         panel.add(regis.add(name));
         panel.add(passL);
         panel.add(regis.add(pass));
+
+        JButton addbtn = new JButton();
+        addbtn.setText("Register Account");
+        panel.add(addbtn);
+        addbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String ID = id.getText();
+                String NAME = name.getText();
+                String PASS = pass.getText();
+                Accounts A1 = new Accounts(ID, NAME, PASS);
+
+                String sout = "Account ID : "+A1.getAccID()+"\nAccount Name : "+A1.getAccName()+"\nPassword : "+A1.getPassword();
+                JOptionPane.showMessageDialog(null, sout);
+            }
+        });
 
         regisFrame.add(panel);
 
