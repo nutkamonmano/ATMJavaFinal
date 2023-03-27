@@ -10,7 +10,6 @@ class MainATM extends Accounts{
 	
     public static void main(String[] args){
         OS.createStartupWindow();
-        OS.login();
     }
 
     public void login(){
@@ -38,13 +37,14 @@ class MainATM extends Accounts{
         panel.add(loginbtn);
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginbtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e1){
+            public void actionPerformed(ActionEvent e){
                 //codeauthentication
-                for(int acs=0; acs<countA; acs++){
-                    if(idlogin.getText()==A[acs].getAccID() || passlogin.getText()==A[acs].getPassword()){
-                        System.out.print("found"); break;
-                    }else{
-                        System.out.println("not found");
+                for (int i = 0; i < countA; i++) {
+                    String user = idlogin.getText();
+                    String pw = passlogin.getText();
+                    if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
+                        JOptionPane.showMessageDialog(null, "Proceed to menu");
+                        break;
                     }
                 }
             }
@@ -108,6 +108,7 @@ class MainATM extends Accounts{
                 JOptionPane.showMessageDialog(null, out);
                 
                 countA = countA+1;
+                OS.login();
             }
         });
 
