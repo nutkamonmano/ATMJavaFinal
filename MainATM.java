@@ -9,7 +9,7 @@ class MainATM extends Accounts{
     static Accounts []A = new Accounts[size];
 	
     public static void main(String[] args){
-        OS.createStartupWindow();
+        OS.menu();
     }
 
     public void createStartupWindow(){
@@ -120,10 +120,10 @@ class MainATM extends Accounts{
         LOGIN.setVisible(true);
     }
 
-    public int menu(){
-        int choice;
+    public void menu(){
         JFrame menu = new JFrame("Main Menu...");
-        JPanel panel = new JPanel();
+        JPanel mpanel = new JPanel();
+        JPanel mpanel2 = new JPanel();
         String mm = "Main Menu";
         JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
         JButton depbtn = new JButton("Deposit");
@@ -131,8 +131,22 @@ class MainATM extends Accounts{
         JButton trfbtn = new JButton("Transfer");
         JButton tupbtn = new JButton("Top-Up & Pay");
         JButton logoutbtn = new JButton("Logout / Exit");
-        
 
-        return choice;
+        mpanel.setLayout(new GridLayout(4,2));
+        mpanel2.setLayout(new GridLayout(1,1));
+        mpanel.add(depbtn);
+        mpanel.add(wtdbtn);
+        mpanel.add(trfbtn);
+        mpanel.add(tupbtn);
+        mpanel2.add(logoutbtn);
+        
+        menu.add(mainmenu, BorderLayout.NORTH);
+        menu.add(mpanel, BorderLayout.CENTER);
+        menu.add(mpanel2, BorderLayout.SOUTH);
+        
+        menu.setSize(300,300);
+        menu.setLocationRelativeTo(null);
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.setVisible(true);
     }
 }
