@@ -12,61 +12,15 @@ class MainATM extends Accounts{
         OS.createStartupWindow();
     }
 
-    public void login(){
-        //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
-        JPanel loginpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JTextField idlogin = new JTextField(10);
-        JTextField passlogin = new JTextField(10);
-
-        //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
-        JFrame LOGIN = new JFrame("Login account");
-        LOGIN.setLayout(new GridLayout(3,1));
-        JPanel panel = new JPanel();
-        loginpanel.setLayout(new GridLayout(5,1));
-        JLabel idLg = new JLabel("Account ID: ");
-        JLabel passLg = new JLabel("Password: ");
-
-
-        panel.add(idLg);
-        panel.add(loginpanel.add(idlogin));
-        panel.add(passLg);
-        panel.add(loginpanel.add(passlogin));
-
-        JButton loginbtn = new JButton();
-        loginbtn.setText("LOG IN");
-        panel.add(loginbtn);
-        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loginbtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                //codeauthentication
-                for (int i = 0; i < countA; i++) {
-                    String user = idlogin.getText();
-                    String pw = passlogin.getText();
-                    if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
-                        JOptionPane.showMessageDialog(null, "Proceed to menu");
-                        break;
-                    }
-                }
-            }
-        });
-
-        LOGIN.add(panel);
-
-        LOGIN.setSize(220, 300);
-        LOGIN.setLocationRelativeTo(null);
-        LOGIN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        LOGIN.setVisible(true);
-    }
-
     public void createStartupWindow(){
-		JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         int result = JOptionPane.showConfirmDialog(frame, "Do you have an account already?", "User Confirmation",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		
-		switch (result){
-			case JOptionPane.YES_OPTION : OS.register(); break;
-			case JOptionPane.NO_OPTION : JOptionPane.showMessageDialog(null, "Proceed to registration page"); break;
-		}
+        
+        switch (result){
+            case JOptionPane.YES_OPTION : OS.register(); break;
+            case JOptionPane.NO_OPTION : JOptionPane.showMessageDialog(null, "Proceed to registration page"); break;
+        }
     }
 
     public void register(){
@@ -118,5 +72,67 @@ class MainATM extends Accounts{
         regisFrame.setLocationRelativeTo(null);
         regisFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         regisFrame.setVisible(true);
+    }
+
+    public void login(){
+        //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
+        JPanel loginpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JTextField idlogin = new JTextField(10);
+        JTextField passlogin = new JTextField(10);
+
+        //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
+        JFrame LOGIN = new JFrame("Login account");
+        LOGIN.setLayout(new GridLayout(3,1));
+        JPanel panel = new JPanel();
+        loginpanel.setLayout(new GridLayout(5,1));
+        JLabel idLg = new JLabel("Account ID: ");
+        JLabel passLg = new JLabel("Password: ");
+
+
+        panel.add(idLg);
+        panel.add(loginpanel.add(idlogin));
+        panel.add(passLg);
+        panel.add(loginpanel.add(passlogin));
+
+        JButton loginbtn = new JButton();
+        loginbtn.setText("LOG IN");
+        panel.add(loginbtn);
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                //codeauthentication
+                for (int i = 0; i < countA; i++) {
+                    String user = idlogin.getText();
+                    String pw = passlogin.getText();
+                    if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
+                        JOptionPane.showMessageDialog(null, "Proceed to menu");
+                        break;
+                    }
+                }
+            }
+        });
+
+        LOGIN.add(panel);
+
+        LOGIN.setSize(220, 300);
+        LOGIN.setLocationRelativeTo(null);
+        LOGIN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        LOGIN.setVisible(true);
+    }
+
+    public int menu(){
+        int choice;
+        JFrame menu = new JFrame("Main Menu...");
+        JPanel panel = new JPanel();
+        String mm = "Main Menu";
+        JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
+        JButton depbtn = new JButton("Deposit");
+        JButton wtdbtn = new JButton("Withdrawal");
+        JButton trfbtn = new JButton("Transfer");
+        JButton tupbtn = new JButton("Top-Up & Pay");
+        JButton logoutbtn = new JButton("Logout / Exit");
+        
+
+        return choice;
     }
 }
