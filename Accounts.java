@@ -13,7 +13,7 @@ class Accounts {
     }
 
     //Attributes and Operators Below
-    public String password;
+    protected String password;
     
     public String getPassword() {
         return password;
@@ -22,7 +22,7 @@ class Accounts {
         this.password = password;
     }
 
-    public String accID;
+    protected String accID;
     public String getAccID() {
         return accID;
     }
@@ -30,7 +30,7 @@ class Accounts {
         this.accID = accID;
     }
 
-    public String accName;
+    protected String accName;
     public String getAccName() {
         return accName;
     }
@@ -38,7 +38,7 @@ class Accounts {
         this.accName = accName;
     }
 
-    public double balance;
+    protected double balance;
     public double getBalance() {
         return balance;
     }
