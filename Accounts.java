@@ -1,10 +1,10 @@
 class Accounts {
     Accounts(){}
-    Accounts(String accID, String accName, Double balance){
-        this.accID = accID;
-        this.accName = accName;
-        this.balance = balance;
-    }
+    // Accounts(String accID, String accName, Double balance){
+    //     this.accID = accID;
+    //     this.accName = accName;
+    //     this.balance = balance;
+    // }
 
     Accounts(String accID, String accName, String password){
         this.accID = accID;
@@ -13,7 +13,7 @@ class Accounts {
     }
 
     //Attributes and Operators Below
-    protected String password;
+    public String password;
     
     public String getPassword() {
         return password;
@@ -22,7 +22,7 @@ class Accounts {
         this.password = password;
     }
 
-    protected String accID;
+    public String accID;
     public String getAccID() {
         return accID;
     }
@@ -30,7 +30,7 @@ class Accounts {
         this.accID = accID;
     }
 
-    protected String accName;
+    public String accName;
     public String getAccName() {
         return accName;
     }
@@ -38,7 +38,7 @@ class Accounts {
         this.accName = accName;
     }
 
-    protected double balance;
+    public double balance;
     public double getBalance() {
         return balance;
     }

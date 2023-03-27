@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-class MainATM {
+class MainATM extends Accounts{
     static final int size = 10;
 	static MainATM OS = new MainATM();
     static int countA = 0;
@@ -10,6 +10,7 @@ class MainATM {
 	
     public static void main(String[] args){
         OS.createStartupWindow();
+        OS.login();
     }
 
     public void login(){
@@ -35,16 +36,15 @@ class MainATM {
         JButton loginbtn = new JButton();
         loginbtn.setText("LOG IN");
         panel.add(loginbtn);
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e1){
-                for(int i=0; i<=countA; i++){
-                    if(idlogin.getText() == A[i].getAccID()){
-                        JOptionPane.showMessageDialog(null, "Correct");
-                        LOGIN.dispose();
-                        if(passlogin.getText() == A[i].getPassword()){
-                            JOptionPane.showMessageDialog(null, "Correct");
-                            LOGIN.dispose();
-                        }
+                //codeauthentication
+                for(int acs=0; acs<countA; acs++){
+                    if(idlogin.getText()==A[acs].getAccID() || passlogin.getText()==A[acs].getPassword()){
+                        System.out.print("found"); break;
+                    }else{
+                        System.out.println("not found");
                     }
                 }
             }
@@ -52,7 +52,7 @@ class MainATM {
 
         LOGIN.add(panel);
 
-        LOGIN.setSize(300, 300);
+        LOGIN.setSize(220, 300);
         LOGIN.setLocationRelativeTo(null);
         LOGIN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         LOGIN.setVisible(true);
@@ -98,12 +98,16 @@ class MainATM {
         panel.add(addbtn);
         addbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                String ID = id.getText();
-                String NAME = name.getText();
-                String PASS = pass.getText();
-                A[countA] = new Accounts(ID, NAME, PASS);
+                String accID = id.getText();
+                String accName = name.getText();
+                String password = pass.getText();
+                A[countA] = new Accounts(accID, accName, password);
+                
                 regisFrame.dispose();
-                OS.login();
+                String out = "Account details: \n"+A[countA].getAccID()+"\n"+A[countA].getAccName()+"\n"+"pass: "+A[countA].getPassword();
+                JOptionPane.showMessageDialog(null, out);
+                
+                countA = countA+1;
             }
         });
 
