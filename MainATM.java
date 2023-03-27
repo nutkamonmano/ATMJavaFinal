@@ -40,13 +40,13 @@ class MainATM {
                 for(int i=0; i<=countA; i++){
                     if(idlogin.getText() == A[i].getAccID()){
                         JOptionPane.showMessageDialog(null, "Correct");
+                        LOGIN.dispose();
                         if(passlogin.getText() == A[i].getPassword()){
                             JOptionPane.showMessageDialog(null, "Correct");
+                            LOGIN.dispose();
                         }
                     }
                 }
-            
-                LOGIN.dispose();
             }
         });
 
