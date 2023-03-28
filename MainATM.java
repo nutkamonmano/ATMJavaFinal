@@ -18,8 +18,8 @@ class MainATM extends Accounts{
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         switch (result){
-            case JOptionPane.YES_OPTION : OS.register(); break;
-            case JOptionPane.NO_OPTION : JOptionPane.showMessageDialog(null, "Proceed to registration page"); break;
+            case JOptionPane.YES_OPTION : OS.login(); break;
+            case JOptionPane.NO_OPTION : OS.register(); break;
         }
     }
 
@@ -131,6 +131,36 @@ class MainATM extends Accounts{
         JButton trfbtn = new JButton("Transfer");
         JButton tupbtn = new JButton("Top-Up & Pay");
         JButton logoutbtn = new JButton("Logout / Exit");
+
+        depbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
+            }
+        });
+
+        wtdbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Withdrawal Section");
+            }
+        });
+
+        trfbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Transfer Section");
+            }
+        });
+
+        tupbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
+            }
+        });
+
+        logoutbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Log Out Section");
+            }
+        });
 
         mpanel.setLayout(new GridLayout(4,2));
         mpanel2.setLayout(new GridLayout(1,1));
