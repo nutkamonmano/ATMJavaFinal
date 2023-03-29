@@ -5,11 +5,12 @@ import java.awt.event.ActionListener;
 class MainATM extends Accounts{
     static final int size = 10;
 	static MainATM OS = new MainATM();
+    static PayBill pb = new PayBill();
     static int countA = 0;
     static Accounts []A = new Accounts[size];
 	
     public static void main(String[] args){
-        OS.menu();
+        OS.createStartupWindow();
     }
 
     public void createStartupWindow(){
@@ -20,6 +21,19 @@ class MainATM extends Accounts{
         switch (result){
             case JOptionPane.YES_OPTION : OS.login(); break;
             case JOptionPane.NO_OPTION : OS.register(); break;
+        }
+    }
+
+    public void exitConfirmation(){
+        JFrame frame = new JFrame();
+        Object stringArray[] = {"Quit", "Log out", "Cancel"};
+        int result = JOptionPane.showOptionDialog(frame, "Do you want to quit or logout the system", "Quit/Logout",
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, stringArray, stringArray[0]);
+        
+        switch (result){
+            case JOptionPane.YES_OPTION : break;
+            case JOptionPane.NO_OPTION : OS.createStartupWindow(); break;
+            case JOptionPane.CANCEL_OPTION : OS.menu(); break;
         }
     }
 
@@ -62,7 +76,7 @@ class MainATM extends Accounts{
                 JOptionPane.showMessageDialog(null, out);
                 
                 countA = countA+1;
-                OS.login();
+                OS.menu();
             }
         });
 
@@ -105,8 +119,8 @@ class MainATM extends Accounts{
                     String user = idlogin.getText();
                     String pw = passlogin.getText();
                     if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
-                        JOptionPane.showMessageDialog(null, "Proceed to menu");
-                        break;
+                        OS.menu();
+                        LOGIN.dispose();
                     }
                 }
             }
@@ -152,13 +166,15 @@ class MainATM extends Accounts{
 
         tupbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
+                // JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
+                pb.menu();
+                menu.dispose();
             }
         });
 
         logoutbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Log Out Section");
+                OS.exitConfirmation();
             }
         });
 
