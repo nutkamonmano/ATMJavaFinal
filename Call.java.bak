@@ -45,7 +45,7 @@ class Call {
 
 
 		if(atm>100){
-				balance +=atm;
+				balance = balance + atm;
 		}
 	}
 
