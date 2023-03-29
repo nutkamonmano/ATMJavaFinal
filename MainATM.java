@@ -2,22 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-class MainATM {
+class MainATM extends Accounts{
+    static final int size = 10;
 	static MainATM OS = new MainATM();
+    static int countA = 0;
+    static Accounts []A = new Accounts[size];
 	
     public static void main(String[] args){
-        OS.createStartupWindow();
+        OS.menu();
     }
 
     public void createStartupWindow(){
-		JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         int result = JOptionPane.showConfirmDialog(frame, "Do you have an account already?", "User Confirmation",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		
-		switch (result){
-			case JOptionPane.YES_OPTION : OS.register(); break;
-			case JOptionPane.NO_OPTION : JOptionPane.showMessageDialog(null, "Proceed to registration page"); break;
-		}
+        
+        switch (result){
+            case JOptionPane.YES_OPTION : OS.login(); break;
+            case JOptionPane.NO_OPTION : OS.register(); break;
+        }
     }
 
     public void register(){
@@ -49,13 +52,17 @@ class MainATM {
         panel.add(addbtn);
         addbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                String ID = id.getText();
-                String NAME = name.getText();
-                String PASS = pass.getText();
-                Accounts A1 = new Accounts(ID, NAME, PASS);
-
-                String sout = "Account ID : "+A1.getAccID()+"\nAccount Name : "+A1.getAccName()+"\nPassword : "+A1.getPassword();
-                JOptionPane.showMessageDialog(null, sout);
+                String accID = id.getText();
+                String accName = name.getText();
+                String password = pass.getText();
+                A[countA] = new Accounts(accID, accName, password);
+                
+                regisFrame.dispose();
+                String out = "Account details: \n"+A[countA].getAccID()+"\n"+A[countA].getAccName()+"\n"+"pass: "+A[countA].getPassword();
+                JOptionPane.showMessageDialog(null, out);
+                
+                countA = countA+1;
+                OS.login();
             }
         });
 
@@ -65,5 +72,111 @@ class MainATM {
         regisFrame.setLocationRelativeTo(null);
         regisFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         regisFrame.setVisible(true);
+    }
+
+    public void login(){
+        //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
+        JPanel loginpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JTextField idlogin = new JTextField(10);
+        JTextField passlogin = new JTextField(10);
+
+        //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
+        JFrame LOGIN = new JFrame("Login account");
+        LOGIN.setLayout(new GridLayout(3,1));
+        JPanel panel = new JPanel();
+        loginpanel.setLayout(new GridLayout(5,1));
+        JLabel idLg = new JLabel("Account ID: ");
+        JLabel passLg = new JLabel("Password: ");
+
+
+        panel.add(idLg);
+        panel.add(loginpanel.add(idlogin));
+        panel.add(passLg);
+        panel.add(loginpanel.add(passlogin));
+
+        JButton loginbtn = new JButton();
+        loginbtn.setText("LOG IN");
+        panel.add(loginbtn);
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                //codeauthentication
+                for (int i = 0; i < countA; i++) {
+                    String user = idlogin.getText();
+                    String pw = passlogin.getText();
+                    if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
+                        JOptionPane.showMessageDialog(null, "Proceed to menu");
+                        break;
+                    }
+                }
+            }
+        });
+
+        LOGIN.add(panel);
+
+        LOGIN.setSize(220, 300);
+        LOGIN.setLocationRelativeTo(null);
+        LOGIN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        LOGIN.setVisible(true);
+    }
+
+    public void menu(){
+        JFrame menu = new JFrame("Main Menu...");
+        JPanel mpanel = new JPanel();
+        JPanel mpanel2 = new JPanel();
+        String mm = "Main Menu";
+        JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
+        JButton depbtn = new JButton("Deposit");
+        JButton wtdbtn = new JButton("Withdrawal");
+        JButton trfbtn = new JButton("Transfer");
+        JButton tupbtn = new JButton("Top-Up & Pay");
+        JButton logoutbtn = new JButton("Logout / Exit");
+
+        depbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
+            }
+        });
+
+        wtdbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Withdrawal Section");
+            }
+        });
+
+        trfbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Transfer Section");
+            }
+        });
+
+        tupbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
+            }
+        });
+
+        logoutbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                JOptionPane.showMessageDialog(null, "Proceed to Log Out Section");
+            }
+        });
+
+        mpanel.setLayout(new GridLayout(4,2));
+        mpanel2.setLayout(new GridLayout(1,1));
+        mpanel.add(depbtn);
+        mpanel.add(wtdbtn);
+        mpanel.add(trfbtn);
+        mpanel.add(tupbtn);
+        mpanel2.add(logoutbtn);
+        
+        menu.add(mainmenu, BorderLayout.NORTH);
+        menu.add(mpanel, BorderLayout.CENTER);
+        menu.add(mpanel2, BorderLayout.SOUTH);
+        
+        menu.setSize(300,300);
+        menu.setLocationRelativeTo(null);
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.setVisible(true);
     }
 }

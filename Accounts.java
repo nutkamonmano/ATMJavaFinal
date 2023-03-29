@@ -1,10 +1,10 @@
 class Accounts {
     Accounts(){}
-    Accounts(String accID, String accName, Double balance){
-        this.accID = accID;
-        this.accName = accName;
-        this.balance = balance;
-    }
+    // Accounts(String accID, String accName, Double balance){
+    //     this.accID = accID;
+    //     this.accName = accName;
+    //     this.balance = balance;
+    // }
 
     Accounts(String accID, String accName, String password){
         this.accID = accID;
