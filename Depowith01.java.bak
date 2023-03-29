@@ -47,14 +47,18 @@ public class Depowith01 {
 
 	public void showdeposit(){
 		String output = "***************DEPOSIT***************";
+		//GregorianCalendar gc = new GregorianCalendar();
+
 			Calendar g = Calendar.getInstance();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String currentDate = df.format(g.getTime());
 			
 			output +="\n Deposit: " +c.getBalance()+" THB";
+			//output +="\nDate:"+"["+gc.get(Calendar.DATE)+"/"+gc.get(Calendar.MONTH)+"/"+gc.get(Calendar.DATE)+"]"+" "+gc.get(Calendar.HOUR)+":"+gc.get(Calendar.MINUTE)+":"+gc.get(Calendar.SECOND);
 			output += "\nDate: " + currentDate;
 			output += "\n****************************************";
-
+			//JOptionPane.showMessageDialog(null,"Deposit: "+c.getBalance());
+			//JOptionPane.showMessageDialog(null,"Date:"+"["+gc.get(Calendar.DATE)+"/"+gc.get(Calendar.MONTH)+"/"+gc.get(Calendar.DATE)+"]");
 			JOptionPane.showMessageDialog(null,output);
 }
 
