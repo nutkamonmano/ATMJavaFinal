@@ -1,5 +1,6 @@
 import javax.swing.JOptionPane;
 class Call {
+	static Depowith01 d = new Depowith01();
 	private int money;
 	private int wmoney;
 	private int balance;
@@ -38,22 +39,25 @@ class Call {
 	}
 
 	public void deposit(int atm){
-		String output = "*********Deposit********";		
-		if(atm<0 || atm<100){
-			JOptionPane.showMessageDialog(null,"can not");
-		}
+	
+		if(atm<0 || atm<100 || atm%100!=0  ){
+			JOptionPane.showMessageDialog(null,"Unable to make a transaction >please re-enter<");
+			d.Deposit();
+		}else{
 
+			balance +=atm;
 
-		if(atm>100){
-				balance = balance + atm;
 		}
 	}
 
 		public void withdrew(int o){
-		int n,m,sum;
-		String	output = "************withdrew**********";
-				balance -= o;
-		JOptionPane.showMessageDialog(null,output);
+
+		if(o>balance || o<100 || o%100!=0){
+			JOptionPane.showMessageDialog(null,"Unable to make a transaction");
+			c.Withdrew();
+		}else{
+			balance -= o;
+		}
 		
 	}
 	

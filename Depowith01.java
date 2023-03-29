@@ -26,8 +26,11 @@ public class Depowith01 {
 
 	public static int manu(){
 	int ch = Integer.parseInt(JOptionPane.showInputDialog("********Deposit********"
-														+"\n    1.Inputdeposit    "
-														+"\n    2.Show			  "));
+														+"\n		1.DEPOSIT				"
+														+"\n		2.BALANCEDEPOSIT		"
+														+"\n		3.WITHDREW				"
+														+"\n		4.BALANCEWITHDREW		"
+														+"\n		0.FINISH				"));
 
 									return ch;
 
@@ -66,8 +69,19 @@ public class Depowith01 {
 		}
 
 	public void showwithdrew(){
+		String output = "***************WITHDREW***************";
+			Calendar g = Calendar.getInstance();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String currentDate = df.format(g.getTime());
+			
+			output +="\n Withdrew: " +c.getBalance()+ "THB";
+			output += "\nDate: " + currentDate;
+			output += "\n****************************************";
+
+			JOptionPane.showMessageDialog(null,output);
+}
 	
-		JOptionPane.showMessageDialog(null,"Withdrew "+c.getBalance());
+		//JOptionPane.showMessageDialog(null,"Withdrew "+c.getBalance());
 		
 	}
 
@@ -76,7 +90,7 @@ public class Depowith01 {
 
 
 
-}
+
 
 
  
