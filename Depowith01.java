@@ -81,7 +81,6 @@ public class Depowith01 {
 			JOptionPane.showMessageDialog(null,output);
 }
 	
-		//JOptionPane.showMessageDialog(null,"Withdrew "+c.getBalance());
 		
 	}
 

@@ -74,7 +74,7 @@ public class Depowith01 {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String currentDate = df.format(g.getTime());
 			
-			output +="\n Withdrew" +c.getBalance()+ "THB";
+			output +="\n Withdrew: " +c.getBalance()+ "THB";
 			output += "\nDate: " + currentDate;
 			output += "\n****************************************";
 
