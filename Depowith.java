@@ -1,3 +1,4 @@
+import java.util.*;
 import javax.swing.JOptionPane;
 class Depowith{
 	private double Baht;
@@ -12,7 +13,7 @@ class Depowith{
 		do{
 			switch(ch){
 				case 1 : Deposit(); break;
-				case 2 : show(); break;
+				//case 2 : show(); break;
 				case 0 :break;
 
 			}
@@ -37,18 +38,23 @@ class Depowith{
 
 
 
-	public static void Deposit(double baht){
-		String baht;
-		baht = Double.parseDouble(JOptionPane.showInput("pls input deposit"));
+	public static void Deposit(){
+		double baht;
+		System.out.println("input radius : ");
+		Scanner scanner = new Scanner(System.in);
+		baht = scanner.nextDouble();
 
 		if(baht<0){
 			System.out.println("can not");
 		}
 
-		if(bath>0 && baht/100){
+		if(baht>0 && baht/100){
 			this.Baht += baht;
 		}
 }
+
+
+
 }
 
 
