@@ -4,61 +4,55 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class PayBill extends MainATM {
     static int ch;
-    static PayBill pb = new PayBill();
+    JFrame payfine = new JFrame("จ่ายค่าปรับจราจร");
 
     public static void main(String[] args){
         pb.menu();
     }
 
     public void menu(){
-        JFrame menu = new JFrame("Pay Bills");
+        JFrame menu = new JFrame("จ่ายบิล");
         JPanel mpanel = new JPanel();
         JPanel mpanel2 = new JPanel();
-        String mm = "What bill(s) do you want to pay ?";
+        String mm = "คุณต้องการที่จะจ่ายบิลใด";
         JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
-        JButton depbtn = new JButton("ค่าปรับ");
-        JButton wtdbtn = new JButton("Withdrawal");
-        JButton trfbtn = new JButton("Transfer");
-        JButton tupbtn = new JButton("Top-Up & Pay");
-        JButton logoutbtn = new JButton("Logout / Exit");
+        JButton finebtn = new JButton("ค่าปรับ");
+        JButton utilsbtn = new JButton("ค่าน้ำ/ค่าไฟ");
+        JButton phoneandinternetbtn = new JButton("ค่่าโทรศัพท์/ค่าอินเทอร์เน็ต");
+        JButton returnbtn = new JButton("กลับหน้าหลัก");
 
-        depbtn.addActionListener(new ActionListener(){
+        finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
             }
         });
 
-        wtdbtn.addActionListener(new ActionListener(){
+        utilsbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JOptionPane.showMessageDialog(null, "Proceed to Withdrawal Section");
             }
         });
 
-        trfbtn.addActionListener(new ActionListener(){
+        phoneandinternetbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JOptionPane.showMessageDialog(null, "Proceed to Transfer Section");
             }
         });
 
-        tupbtn.addActionListener(new ActionListener(){
+        returnbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
-            }
-        });
-
-        logoutbtn.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Log Out Section");
+                menu.dispose();
+                OS.menu();
+                return;
             }
         });
 
         mpanel.setLayout(new GridLayout(4,2));
-        mpanel2.setLayout(new GridLayout(3,1));
-        mpanel.add(depbtn);
-        mpanel.add(wtdbtn);
-        mpanel.add(trfbtn);
-        mpanel.add(tupbtn);
-        mpanel2.add(logoutbtn, SwingConstants.CENTER);
+        mpanel2.setLayout(new GridLayout(1,1));
+        mpanel.add(finebtn);
+        mpanel.add(utilsbtn);
+        mpanel.add(phoneandinternetbtn);
+        mpanel2.add(returnbtn, SwingConstants.CENTER);
         
         menu.add(mainmenu, BorderLayout.NORTH);
         menu.add(mpanel, BorderLayout.CENTER);
@@ -69,4 +63,13 @@ public class PayBill extends MainATM {
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
     } 
+
+    public void payFine(){
+        double fine;
+        int choice;
+
+        
+
+    }
+
 }

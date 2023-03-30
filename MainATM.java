@@ -5,16 +5,22 @@ import java.awt.event.ActionListener;
 class MainATM extends Accounts{
     static final int size = 10;
 	static MainATM OS = new MainATM();
+    static PayBill pb = new PayBill();
     static int countA = 0;
     static Accounts []A = new Accounts[size];
-	
+
+    JFrame menu = new JFrame("Main Menu...");
+    JFrame exitframe = new JFrame();
+    JFrame startup = new JFrame();
+    JPanel regis = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    JFrame LOGIN = new JFrame("Login account");
+
     public static void main(String[] args){
-        OS.menu();
+        OS.createStartupWindow();
     }
 
     public void createStartupWindow(){
-        JFrame frame = new JFrame();
-        int result = JOptionPane.showConfirmDialog(frame, "Do you have an account already?", "User Confirmation",
+        int result = JOptionPane.showConfirmDialog(startup, "Do you have an account already?", "User Confirmation",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         switch (result){
@@ -23,9 +29,20 @@ class MainATM extends Accounts{
         }
     }
 
+    public void exitConfirmation(){
+        Object stringArray[] = {"Quit", "Log out", "Cancel"};
+        int result = JOptionPane.showOptionDialog(exitframe, "Do you want to quit or logout the system", "Quit/Logout",
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, stringArray, stringArray[0]);
+        
+        switch (result){
+            case JOptionPane.YES_OPTION : menu.dispose(); break;
+            case JOptionPane.NO_OPTION : menu.dispose(); OS.createStartupWindow(); break;
+            case JOptionPane.CANCEL_OPTION : break;
+        }
+    }
+
     public void register(){
         //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
-        JPanel regis = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JTextField id = new JTextField(10);
         JTextField name = new JTextField(10);
         JTextField pass = new JTextField(10);
@@ -62,7 +79,7 @@ class MainATM extends Accounts{
                 JOptionPane.showMessageDialog(null, out);
                 
                 countA = countA+1;
-                OS.login();
+                OS.menu();
             }
         });
 
@@ -81,7 +98,6 @@ class MainATM extends Accounts{
         JTextField passlogin = new JTextField(10);
 
         //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
-        JFrame LOGIN = new JFrame("Login account");
         LOGIN.setLayout(new GridLayout(3,1));
         JPanel panel = new JPanel();
         loginpanel.setLayout(new GridLayout(5,1));
@@ -105,8 +121,8 @@ class MainATM extends Accounts{
                     String user = idlogin.getText();
                     String pw = passlogin.getText();
                     if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
-                        JOptionPane.showMessageDialog(null, "Proceed to menu");
-                        break;
+                        OS.menu();
+                        LOGIN.dispose();
                     }
                 }
             }
@@ -121,7 +137,6 @@ class MainATM extends Accounts{
     }
 
     public void menu(){
-        JFrame menu = new JFrame("Main Menu...");
         JPanel mpanel = new JPanel();
         JPanel mpanel2 = new JPanel();
         String mm = "Main Menu";
@@ -152,13 +167,15 @@ class MainATM extends Accounts{
 
         tupbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
+                // JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
+                pb.menu();
+                menu.dispose();
             }
         });
 
         logoutbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Log Out Section");
+                OS.exitConfirmation();
             }
         });
 
