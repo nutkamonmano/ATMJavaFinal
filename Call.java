@@ -40,7 +40,7 @@ class Call {
 
 	public void deposit(int atm){
 	
-		if(atm<0 || atm<100 || atm%100!=0  ){
+		if(atm<0 || atm<99 || atm%100!=0  ){
 			JOptionPane.showMessageDialog(null,"Unable to make a transaction >please re-enter<");
 			d.Deposit();
 		}else{
@@ -52,7 +52,7 @@ class Call {
 
 		public void withdrew(int o){
 
-		if(o>balance || o<100 || o%100!=0){
+		if(o>balance || o<99 || o%100!=0){
 			JOptionPane.showMessageDialog(null,"Unable to make a transaction");
 			d.Withdrew();
 		}else{
