@@ -4,13 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class PayBill extends MainATM {
     static int ch;
+    JFrame payfine = new JFrame("จ่ายค่าปรับจราจร");
 
     public static void main(String[] args){
         pb.menu();
     }
 
     public void menu(){
-        JFrame menu = new JFrame("Pay Bills");
+        JFrame menu = new JFrame("จ่ายบิล");
         JPanel mpanel = new JPanel();
         JPanel mpanel2 = new JPanel();
         String mm = "คุณต้องการที่จะจ่ายบิลใด";
@@ -62,4 +63,13 @@ public class PayBill extends MainATM {
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
     } 
+
+    public void payFine(){
+        double fine;
+        int choice;
+
+        
+
+    }
+
 }

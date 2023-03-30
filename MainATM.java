@@ -8,14 +8,19 @@ class MainATM extends Accounts{
     static PayBill pb = new PayBill();
     static int countA = 0;
     static Accounts []A = new Accounts[size];
-	
+
+    JFrame menu = new JFrame("Main Menu...");
+    JFrame exitframe = new JFrame();
+    JFrame startup = new JFrame();
+    JPanel regis = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    JFrame LOGIN = new JFrame("Login account");
+
     public static void main(String[] args){
         OS.createStartupWindow();
     }
 
     public void createStartupWindow(){
-        JFrame frame = new JFrame();
-        int result = JOptionPane.showConfirmDialog(frame, "Do you have an account already?", "User Confirmation",
+        int result = JOptionPane.showConfirmDialog(startup, "Do you have an account already?", "User Confirmation",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         switch (result){
@@ -25,21 +30,19 @@ class MainATM extends Accounts{
     }
 
     public void exitConfirmation(){
-        JFrame frame = new JFrame();
         Object stringArray[] = {"Quit", "Log out", "Cancel"};
-        int result = JOptionPane.showOptionDialog(frame, "Do you want to quit or logout the system", "Quit/Logout",
+        int result = JOptionPane.showOptionDialog(exitframe, "Do you want to quit or logout the system", "Quit/Logout",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, stringArray, stringArray[0]);
         
         switch (result){
-            case JOptionPane.YES_OPTION : break;
-            case JOptionPane.NO_OPTION : OS.createStartupWindow(); break;
-            case JOptionPane.CANCEL_OPTION : OS.menu(); break;
+            case JOptionPane.YES_OPTION : menu.dispose(); break;
+            case JOptionPane.NO_OPTION : menu.dispose(); OS.createStartupWindow(); break;
+            case JOptionPane.CANCEL_OPTION : break;
         }
     }
 
     public void register(){
         //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
-        JPanel regis = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JTextField id = new JTextField(10);
         JTextField name = new JTextField(10);
         JTextField pass = new JTextField(10);
@@ -95,7 +98,6 @@ class MainATM extends Accounts{
         JTextField passlogin = new JTextField(10);
 
         //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
-        JFrame LOGIN = new JFrame("Login account");
         LOGIN.setLayout(new GridLayout(3,1));
         JPanel panel = new JPanel();
         loginpanel.setLayout(new GridLayout(5,1));
@@ -135,7 +137,6 @@ class MainATM extends Accounts{
     }
 
     public void menu(){
-        JFrame menu = new JFrame("Main Menu...");
         JPanel mpanel = new JPanel();
         JPanel mpanel2 = new JPanel();
         String mm = "Main Menu";
