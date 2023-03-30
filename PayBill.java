@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class PayBill extends MainATM {
     static int ch;
-    JFrame payfine = new JFrame("จ่ายค่าปรับจราจร");
+    JFrame payfinequestion = new JFrame();
+    JFrame finetype = new JFrame();
 
     public static void main(String[] args){
         pb.menu();
@@ -23,7 +24,7 @@ public class PayBill extends MainATM {
 
         finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
+                pb.payFineQuestion();
             }
         });
 
@@ -64,12 +65,40 @@ public class PayBill extends MainATM {
         menu.setVisible(true);
     } 
 
-    public void payFine(){
-        double fine;
-        int choice;
+    public void payFineQuestion(){
+        String question = "คุณต้องการที่จะชำระ \"ค่าปรับจราจร\" หรือไม่ ?";
 
-        
+        int result = JOptionPane.showConfirmDialog(payfinequestion, question, "จ่ายค่าปรับจราจร", 
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+        switch (result){
+            case JOptionPane.YES_OPTION : payfinequestion.dispose(); pb.chooseFineType(); break;
+            case JOptionPane.NO_OPTION : payfinequestion.dispose();
+        }
+
+    }
+
+    public void chooseFineType(){
+        String ftq = "คุณต้องการที่จะชำระค่าปรับใด";
+        JPanel ftypePanel = new JPanel();
+        JButton speedbtn = new JButton("ค่าปรับ ข้อหาขับรถเร็วกว่าความเร็วที่กำหนด");
+        JButton redlightbtn = new JButton("ค่าปรับ ข้อหาขับรถผ่าสัญญาณไฟจราจร");
+        JButton uturnbtn = new JButton("ค่าปรับ ข้อหากลับรถในที่ห้ามกลับรถ");
+        JButton cancelbtn = new JButton("ยกเลิก และกลับหน้าหลัก");
+        JLabel ftypequestion = new JLabel("<html><div style = 'text-align: center'><h1>"+ftq+"</h1></div></html>");
+        ftypePanel.setLayout(new GridLayout(5,1));
+        ftypePanel.add(ftypequestion);
+        ftypePanel.add(speedbtn);
+        ftypePanel.add(redlightbtn);
+        ftypePanel.add(uturnbtn);
+        ftypePanel.add(cancelbtn);
+
+        finetype.add(ftypePanel);
+
+        finetype.setSize(300,300);
+        finetype.setLocationRelativeTo(null);
+        finetype.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        finetype.setVisible(true);
     }
 
 }
