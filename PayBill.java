@@ -6,6 +6,7 @@ public class PayBill extends MainATM {
     static int ch;
     JFrame payfinequestion = new JFrame();
     JFrame finetype = new JFrame();
+    static double fine = 0;
 
     public static void main(String[] args){
         pb.menu();
@@ -24,7 +25,7 @@ public class PayBill extends MainATM {
 
         finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                pb.payFineQuestion();
+                pb.chooseFineType();
             }
         });
 
@@ -66,13 +67,13 @@ public class PayBill extends MainATM {
     } 
 
     public void payFineQuestion(){
-        String question = "คุณต้องการที่จะชำระ \"ค่าปรับจราจร\" หรือไม่ ?";
+        String question = "คุณต้องการที่จะชำระหรือไม่ ?";
 
-        int result = JOptionPane.showConfirmDialog(payfinequestion, question, "จ่ายค่าปรับจราจร", 
+        int ch = JOptionPane.showConfirmDialog(payfinequestion, question, "จ่ายค่าปรับจราจร", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        switch (result){
-            case JOptionPane.YES_OPTION : payfinequestion.dispose(); pb.chooseFineType(); break;
+        switch (ch){
+            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่ายค่าปรับเสร็จสิ้นแล้ว\nยอดเงินคงเหลือ... บาท"); break;
             case JOptionPane.NO_OPTION : payfinequestion.dispose();
         }
 
@@ -81,10 +82,11 @@ public class PayBill extends MainATM {
     public void chooseFineType(){
         String ftq = "คุณต้องการที่จะชำระค่าปรับใด";
         JPanel ftypePanel = new JPanel();
-        JButton speedbtn = new JButton("ค่าปรับ ข้อหาขับรถเร็วกว่าความเร็วที่กำหนด");
-        JButton redlightbtn = new JButton("ค่าปรับ ข้อหาขับรถผ่าสัญญาณไฟจราจร");
-        JButton uturnbtn = new JButton("ค่าปรับ ข้อหากลับรถในที่ห้ามกลับรถ");
-        JButton cancelbtn = new JButton("ยกเลิก และกลับหน้าหลัก");
+        String finestring[] = {"ค่าปรับ ข้อหาขับรถเร็วกว่าความเร็วที่กำหนด", "ค่าปรับ ข้อหาขับรถผ่าสัญญาณไฟจราจร", "ค่าปรับ ข้อหากลับรถในที่ห้ามกลับรถ", "ยกเลิก และกลับหน้าหลัก"};
+        JButton speedbtn = new JButton(finestring[0]);
+        JButton redlightbtn = new JButton(finestring[1]);
+        JButton uturnbtn = new JButton(finestring[2]);
+        JButton cancelbtn = new JButton(finestring[3]);
         JLabel ftypequestion = new JLabel("<html><div style = 'text-align: center'><h1>"+ftq+"</h1></div></html>");
         ftypePanel.setLayout(new GridLayout(5,1));
         ftypePanel.add(ftypequestion);
@@ -99,6 +101,13 @@ public class PayBill extends MainATM {
         finetype.setLocationRelativeTo(null);
         finetype.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         finetype.setVisible(true);
+
+        speedbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                fine = 500;
+                payFineQuestion();
+            }
+        });
     }
 
 }
