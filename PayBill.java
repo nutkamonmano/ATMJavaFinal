@@ -7,6 +7,7 @@ public class PayBill extends MainATM {
     JFrame payfinequestion = new JFrame();
     JFrame finetype = new JFrame();
     static double fine = 0;
+    static String opt;
 
     public static void main(String[] args){
         pb.menu();
@@ -67,13 +68,13 @@ public class PayBill extends MainATM {
     } 
 
     public void payFineQuestion(){
-        String question = "คุณต้องการที่จะชำระหรือไม่ ?";
+        String question = "คุณต้องการที่จะชำระ"+opt+" หรือไม่ ?";
 
         int ch = JOptionPane.showConfirmDialog(payfinequestion, question, "จ่ายค่าปรับจราจร", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         switch (ch){
-            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่ายค่าปรับเสร็จสิ้นแล้ว\nยอดเงินคงเหลือ... บาท"); break;
+            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ... บาท"); break;
             case JOptionPane.NO_OPTION : payfinequestion.dispose();
         }
 
@@ -104,6 +105,7 @@ public class PayBill extends MainATM {
 
         speedbtn.addActionListener(new ActionListener(){
             public void actionPerformed (ActionEvent e){
+                opt = finestring[0];
                 fine = 500;
                 payFineQuestion();
             }
