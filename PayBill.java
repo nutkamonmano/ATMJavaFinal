@@ -26,6 +26,7 @@ public class PayBill extends MainATM {
 
         finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                menu.dispose();
                 pb.chooseFineType();
             }
         });
@@ -110,6 +111,28 @@ public class PayBill extends MainATM {
                 payFineQuestion();
             }
         });
-    }
 
+        redlightbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                opt = finestring[1];
+                fine = 500;
+                payFineQuestion();
+            }
+        });
+
+        uturnbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                opt = finestring[2];
+                fine = 500;
+                payFineQuestion();
+            }
+        });   
+
+        cancelbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                finetype.dispose();
+                pb.menu();
+            }
+        });   
+    }
 }
