@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class PayBill extends MainATM {
     static int ch;
-    JFrame payfine = new JFrame("จ่ายค่าปรับจราจร");
+    JFrame payfinequestion = new JFrame();
+    JFrame finetype = new JFrame();
+    static double fine = 0;
+    static String opt;
 
     public static void main(String[] args){
         pb.menu();
@@ -23,7 +26,8 @@ public class PayBill extends MainATM {
 
         finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
+                menu.dispose();
+                pb.chooseFineType();
             }
         });
 
@@ -64,12 +68,71 @@ public class PayBill extends MainATM {
         menu.setVisible(true);
     } 
 
-    public void payFine(){
-        double fine;
-        int choice;
+    public void payFineQuestion(){
+        String question = "คุณต้องการที่จะชำระ"+opt+" หรือไม่ ?";
 
-        
+        int ch = JOptionPane.showConfirmDialog(payfinequestion, question, "จ่ายค่าปรับจราจร", 
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        switch (ch){
+            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ... บาท"); break;
+            case JOptionPane.NO_OPTION : payfinequestion.dispose();
+        }
 
     }
 
+    public void chooseFineType(){
+        String ftq = "คุณต้องการที่จะชำระค่าปรับใด";
+        JPanel ftypePanel = new JPanel();
+        String finestring[] = {"ค่าปรับ ข้อหาขับรถเร็วกว่าความเร็วที่กำหนด", "ค่าปรับ ข้อหาขับรถผ่าสัญญาณไฟจราจร", "ค่าปรับ ข้อหากลับรถในที่ห้ามกลับรถ", "ยกเลิก และกลับหน้าหลัก"};
+        JButton speedbtn = new JButton(finestring[0]);
+        JButton redlightbtn = new JButton(finestring[1]);
+        JButton uturnbtn = new JButton(finestring[2]);
+        JButton cancelbtn = new JButton(finestring[3]);
+        JLabel ftypequestion = new JLabel("<html><div style = 'text-align: center'><h1>"+ftq+"</h1></div></html>");
+        ftypePanel.setLayout(new GridLayout(5,1));
+        ftypePanel.add(ftypequestion);
+        ftypePanel.add(speedbtn);
+        ftypePanel.add(redlightbtn);
+        ftypePanel.add(uturnbtn);
+        ftypePanel.add(cancelbtn);
+
+        finetype.add(ftypePanel);
+
+        finetype.setSize(300,300);
+        finetype.setLocationRelativeTo(null);
+        finetype.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        finetype.setVisible(true);
+
+        speedbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                opt = finestring[0];
+                fine = 500;
+                payFineQuestion();
+            }
+        });
+
+        redlightbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                opt = finestring[1];
+                fine = 500;
+                payFineQuestion();
+            }
+        });
+
+        uturnbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                opt = finestring[2];
+                fine = 500;
+                payFineQuestion();
+            }
+        });   
+
+        cancelbtn.addActionListener(new ActionListener(){
+            public void actionPerformed (ActionEvent e){
+                finetype.dispose();
+                pb.menu();
+            }
+        });   
+    }
 }
