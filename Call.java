@@ -1,62 +1,62 @@
 import javax.swing.JOptionPane;
-class Call {
+class Call extends Depowith01{
 	static Depowith01 d = new Depowith01();
-	private int money;
-	private int wmoney;
-	private int balance;
+	private double money;
+	private double wmoney;
+	private double balance;
 
 	Call(){}
 
-	Call(int money){
+	Call(double money){
 	this.money = money;
 	}
 
-	Call(int money,int wmoney){
+	Call(double money,double wmoney){
 	this.money = money;
 	this.wmoney = wmoney;
 
 	}
-	public void setBalance(int balance){
+	public void setBalance(double balance){
 	this. balance= balance;
 	}
 
-	public int getBalance(){
+	public double getBalance(){
 	return balance;
 	}
 
-	public void setMoney(int money){
+	public void setMoney(double money){
 	this.money=money;
 	}
-	public int getMoney(){
+	public double getMoney(){
 	return money;
 	}
 
-	public void setWmoney(int wmoney){
+	public void setWmoney(double wmoney){
 	this.wmoney = wmoney;
 	}
-	public int getWmoney(){
+	public double getWmoney(){
 	return wmoney;
 	}
 
-	public void deposit(int atm){
+	public void deposit(double atm){
 	
 		if(atm<0 || atm<99 || atm%100!=0  ){
 			JOptionPane.showMessageDialog(null,"Unable to make a transaction >please re-enter<");
 			d.Deposit();
 		}else{
 
-			balance +=atm;
+			d.bal +=atm;
 
 		}
 	}
 
-		public void withdrew(int o){
+		public void withdrew(double o){
 
 		if(o>balance || o<99 || o%100!=0){
 			JOptionPane.showMessageDialog(null,"Unable to make a transaction");
 			d.Withdrew();
 		}else{
-			balance -= o;
+			d.bal -= o;
 		}
 		
 	}

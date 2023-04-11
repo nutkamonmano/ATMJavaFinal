@@ -12,6 +12,10 @@ class Accounts {
         this.password = password;
     }
 
+    public void deposit(){
+        
+    }
+
     //Attributes and Operators Below
     protected String password;
     

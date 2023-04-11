@@ -6,8 +6,10 @@ class MainATM extends Accounts{
     static final int size = 10;
 	static MainATM OS = new MainATM();
     static PayBill pb = new PayBill();
+    static Depowith01 d = new Depowith01();
     static int countA = 0;
     static Accounts []A = new Accounts[size];
+    public double bal = 0;
 
     JFrame menu = new JFrame("Main Menu...");
     JFrame exitframe = new JFrame();
@@ -121,6 +123,7 @@ class MainATM extends Accounts{
                     String user = idlogin.getText();
                     String pw = passlogin.getText();
                     if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
+                        bal = A[i].balance;
                         OS.menu();
                         LOGIN.dispose();
                     }
@@ -150,6 +153,7 @@ class MainATM extends Accounts{
         depbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
+                d.manu();
             }
         });
 

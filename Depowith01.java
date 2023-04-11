@@ -5,9 +5,11 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class Depowith01 {
+public class Depowith01 extends MainATM{
 	static Depowith01 d = new Depowith01();
 	static Call c = new Call();
+	int dpsize = 0;
+	Depohis dphistory[] = new Depohis[dpsize];
 
 	JFrame manu = new JFrame("Main Menu");
 
@@ -47,6 +49,7 @@ public class Depowith01 {
 			public void actionPerformed(ActionEvent e){
 				manu.dispose();
 				d.Deposit();
+				d.manu();
 			}
 		});
 
@@ -61,6 +64,7 @@ public class Depowith01 {
 			public void actionPerformed(ActionEvent e){
 			manu.dispose();
 			d.Withdrew();
+			d.manu();
 			}
 		});
 
@@ -81,34 +85,61 @@ public class Depowith01 {
 
 	
 	public void Deposit(){
-		int money;
-		money = Integer.parseInt(JOptionPane.showInputDialog("Enter Deposit"));
-		c = new Call(money);
-		c.deposit(money);
-		d.manu();
+		int depoIN = 0;
+		do{
+			depoIN = Integer.parseInt(JOptionPane.showInputDialog("How much do you want to deposit to your account?"));
+			if(depoIN < 0 || depoIN < 99 || depoIN%100 != 0  ){
+				JOptionPane.showMessageDialog(null,"Unable to make a transaction >please re-enter<");
+			}else{
+				int res = JOptionPane.showConfirmDialog(null, "Are you sure to deposit of THB "+depoIN+" ?", "Deposit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+				if (res == JOptionPane.YES_OPTION){
+					bal += depoIN;
+					double lastBal = bal;
 
-		}
+					Calendar d = Calendar.getInstance();
+					SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
+					String depoDate = f.format(d.getTime());
+					dphistory[dpsize] = new Depohis(depoDate, depoIN, lastBal);
+					dpsize++;
+				}
+				// switch(res){
+				// 	case JOptionPane.YES_OPTION : addDepoHistory(depoIN); break;
+				// 	case JOptionPane.NO_OPTION : break;
+				// }
+			}
+		}while(depoIN<0 || depoIN<99 || depoIN%100 != 0);
+	}
 
 	public void showdeposit(){
-		String output = "***************DEPOSIT***************";
-			Calendar g = Calendar.getInstance();
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String currentDate = df.format(g.getTime());
-			
-			output +="\n Deposit: " +c.getMoney()+" THB";
-			output += "\nDate: " + currentDate;
-			output += "\n****************************************";
-
+		String output = "**********DEPOSIT HISTORY**********";
+			for(int i=0; i<dpsize; i++){
+				output += "Deposit THB "+dphistory[i].getDepoIN();
+				output += "Date : "+dphistory[i].getDepoDate();
+				output += "Last balance since deposit : THB "+dphistory[i].getLastBal();
+			}
 			JOptionPane.showMessageDialog(null,output);
 			d.manu();
 }
 
 	public void Withdrew(){
-		int wmoney;
-		wmoney = Integer.parseInt(JOptionPane.showInputDialog("Enter Withdrew"));
-		c.withdrew(wmoney);
-		d.manu();
+		// int withOut;
+		// wmoney = Integer.parseInt(JOptionPane.showInputDialog("Enter Withdrew"));
+		// c.withdrew(wmoney);
+		// d.manu();
+		int withdrawOUT = 0;
+		do{
+			withdrawOUT = Integer.parseInt(JOptionPane.showInputDialog("How much you do want to withdraw out from your account?"));
+			if(withdrawOUT<0 || withdrawOUT<99 || withdrawOUT%100 != 0){
+				JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");
+			}else{
+				int res = JOptionPane.showConfirmDialog(null, "Are you sure to withdraw THB "+withdrawOUT+" from your account?", "Deposit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
+				switch(res){
+					case JOptionPane.YES_OPTION : bal -= withdrawOUT; break;
+					case JOptionPane.NO_OPTION : break;
+				}
+			}
+		}while(withdrawOUT<0 || withdrawOUT<99 || withdrawOUT%100 != 0);
 		}
 
 	public void showwithdrew(){
@@ -117,10 +148,9 @@ public class Depowith01 {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String currentDate = df.format(g.getTime());
 			
-			output +="\n Withdrew: " +c.getBalance()+ "THB";
+			output +="\n Withdrew: " +bal+ "THB";
 			output += "\nDate: " + currentDate;
 			output += "\n****************************************";
-
 			JOptionPane.showMessageDialog(null,output);
 			d.manu();
 }

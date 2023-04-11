@@ -6,6 +6,7 @@ public class PayBill extends MainATM {
     static int ch;
     JFrame payfinequestion = new JFrame();
     JFrame finetype = new JFrame();
+    JFrame payutil = new JFrame();
     static double fine = 0;
     static String opt;
 
@@ -32,8 +33,9 @@ public class PayBill extends MainATM {
         });
 
         utilsbtn.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Withdrawal Section");
+            public void actionPerformed(ActionEvent e1){
+                menu.dispose();
+                pb.payUtil();
             }
         });
 
@@ -66,7 +68,7 @@ public class PayBill extends MainATM {
         menu.setLocationRelativeTo(null);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menu.setVisible(true);
-    } 
+    }
 
     public void payFineQuestion(){
         String question = "คุณต้องการที่จะชำระ"+opt+" หรือไม่ ?";
@@ -134,5 +136,51 @@ public class PayBill extends MainATM {
                 pb.menu();
             }
         });   
+    }
+
+    public void payUtil(){
+        JPanel panel = new JPanel();
+        JPanel panel2 = new JPanel();
+        String text = "What bills you want to pay?";
+        JLabel header = new JLabel("<html><div style = 'text-align: center'><h1>"+text+"</h1></div></html>");
+        panel.setLayout(new GridLayout(4,1));
+        panel2.setLayout(new GridLayout(1,1));
+
+        JButton elecbtn = new JButton("Electricity Bill");
+        JButton waterbtn = new JButton("Water Bill");
+        JButton returnbtn = new JButton("Return to last menu");
+
+        payutil.add(header, BorderLayout.NORTH);
+        panel.add(elecbtn);
+        panel.add(waterbtn);
+        panel2.add(returnbtn);
+
+        payutil.add(panel, BorderLayout.CENTER);
+        payutil.add(panel2, BorderLayout.SOUTH);
+
+        payutil.setSize(300,300);
+        payutil.setLocationRelativeTo(null);
+        payutil.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        payutil.setVisible(true);
+
+        //add actionlistener
+        returnbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                payutil.dispose();
+                pb.menu();
+            }
+        });
+
+        elecbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                double elec = 0;
+                elec = Double.parseDouble(JOptionPane.showInputDialog("How much do you want to pay \"Electricity Bills\" ?"));
+                if(elec>bal){
+                    JOptionPane.showMessageDialog(null, "Can\'t pay electricity bill due to insuffient balance. Please try again.");
+                }else{
+                    bal -= elec;
+                }//add if clause and apply into account classes
+            }
+        });
     }
 }
