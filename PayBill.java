@@ -1,14 +1,19 @@
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class PayBill extends MainATM {
     static int ch;
+    static int size = 100;
+    static int count = 0;
     JFrame payfinequestion = new JFrame();
     JFrame finetype = new JFrame();
     JFrame payutil = new JFrame();
     static double fine = 0;
     static String opt;
+    static Paybillhistory []pbh = new Paybillhistory[size];
 
     public static void main(String[] args){
         pb.menu();
@@ -179,8 +184,20 @@ public class PayBill extends MainATM {
                     JOptionPane.showMessageDialog(null, "Can\'t pay electricity bill due to insuffient balance. Please try again.");
                 }else{
                     bal -= elec;
+                    String billtype = "Electricity Bills";
+                    JOptionPane.showMessageDialog(null, "You paid "+elec+" baht for "+billtype+"\nYour balance : "+bal+" baht");
+                    String billDate = getpaybilldate();
+                    pbh[count] = new Paybillhistory(billDate, billtype, elec);
                 }//add if clause and apply into account classes
             }
         });
+    }
+
+    public String getpaybilldate(){
+        Calendar d = Calendar.getInstance();
+		SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
+		String billdate = f.format(d.getTime());
+
+        return billdate;
     }
 }
