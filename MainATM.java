@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-class MainATM extends Accounts{
+public class MainATM extends Accounts{
     static final int size = 10;
 	static MainATM OS = new MainATM();
     static PayBill pb = new PayBill();
@@ -10,6 +10,7 @@ class MainATM extends Accounts{
     static int countA = 0;
     static Accounts []A = new Accounts[size];
     public double bal = 0;
+    static int accNo = 0;
 
     JFrame menu = new JFrame("Main Menu...");
     JFrame exitframe = new JFrame();
@@ -75,6 +76,8 @@ class MainATM extends Accounts{
                 String accName = name.getText();
                 String password = pass.getText();
                 A[countA] = new Accounts(accID, accName, password);
+                accNo = countA;
+                bal = A[accNo].getBalance();
                 
                 regisFrame.dispose();
                 String out = "Account details: \n"+A[countA].getAccID()+"\n"+A[countA].getAccName()+"\n"+"pass: "+A[countA].getPassword();
@@ -123,7 +126,8 @@ class MainATM extends Accounts{
                     String user = idlogin.getText();
                     String pw = passlogin.getText();
                     if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
-                        bal = A[i].balance;
+                        A[i].setBalance(bal);
+                        accNo = i;
                         OS.menu();
                         LOGIN.dispose();
                     }
