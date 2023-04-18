@@ -14,11 +14,11 @@ public static void main(String[] args){
 
 public void bank(){
    // string account;
-    Double tranfer1=0.0;
-    Double m=0.0;
+    Double tranfer1=0.00;
+    Double m=0.00;
 
     m = Double.parseDouble(JOptionPane.showInputDialog("sai money"));
-    tranfer1 = Double.parseDouble(JOptionPane.showInputDialog("กรุณาใส่จำนวนเงิน"));       
+    tranfer1 = Double.parseDouble(JOptionPane.showInputDialog("TRANFER"));       
                     
                 
                 if(tranfer1<0){
@@ -45,8 +45,10 @@ public void bank(){
 public void showbank(){
     String output = "*****************HISTORY TRANFER*****************";
     for(int i=0 ; i<count;i++){
-    output += "\n TRANFER THB"+a[i].getTranfer();
+    output += "\nTRANFER THB"+a[i].getTranfer();
+    output +="\nDate : ";
     output +="\nLast balance : THB "+a[i].getBathtranfer();
+    output +="\n********************************************************";
     }
      
      JOptionPane.showMessageDialog(null,output);
