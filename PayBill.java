@@ -50,7 +50,8 @@ public class PayBill extends MainATM {
 
         phoneandinternetbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Transfer Section");
+                menu.dispose();
+                pb.payPhoneandInternet();
             }
         });
 
