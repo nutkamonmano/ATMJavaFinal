@@ -15,6 +15,10 @@ public class Addbank {
         this.bathtranfer = bathtranfer1; 
     }
 
+    public Addbank(double m){
+        this.money = m;
+    }
+
     public void setBankdate (String bankdate1){
         this.bankdate = bankdate1;
     }

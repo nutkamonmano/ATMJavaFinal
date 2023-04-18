@@ -9,7 +9,7 @@ public class Bank {
     static Bank b = new Bank();
     static Depohis []d = new Depohis[1000];
     static Addbank []a = new Addbank[1000];
-    static int count=0;
+    static int count=0,countt=0;
 
         JFrame menu = new JFrame("Money Transfer");
     public static void main(String[] args){
@@ -24,6 +24,7 @@ public class Bank {
         String Lb = "Money Transfer";
         JLabel label = new JLabel("<html><div style = 'text -align:center'><h1>"+Lb+"</h1></html>",SwingConstants.LEFT);
         
+        JButton bbutton = new JButton("baba");
         JButton bkbutton = new JButton("Tranfer");
         JButton sbbutton = new JButton("ShowTransfer");
         
@@ -31,6 +32,7 @@ public class Bank {
 
         panel1.setLayout(new GridLayout(3,1));
 
+        panel1.add(bbutton);
         panel1.add(bkbutton);
         panel1.add(sbbutton);
         
@@ -43,10 +45,21 @@ public class Bank {
 		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu.setVisible(true);
 
+
+
+        bbutton.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent e){
+				menu.dispose();
+				b.baba();
+				b.menu();
+			}
+		});
+
+
         bkbutton.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				menu.dispose();
-				b.bank();
+				b.bank(1000);
 				b.menu();
 			}
 		});
@@ -62,15 +75,19 @@ public class Bank {
 
     }
         
-        
+public Double baba(){  
+Double m;
+m = Double.parseDouble(JOptionPane.showInputDialog("sai money"));
+a[countt] = new Addbank(m);
+return m;
+countt++;
+}        
 
 
-public void bank(){
+public void bank(double m){
    // string account;
-    Double tranfer1=0.00;
-    Double m=1000.00;
-
-    //m = Double.parseDouble(JOptionPane.showInputDialog("sai money"));
+    Double tranfer1 = 0.00;
+ 
     tranfer1 = Double.parseDouble(JOptionPane.showInputDialog("TRANFER"));       
                     
                 
@@ -81,7 +98,6 @@ public void bank(){
 
                     if(res == JOptionPane.YES_OPTION){
                         m-=tranfer1;
-
                         double bathtranfer1 = m;
                         
                         a[count] = new Addbank(tranfer1,bathtranfer1);
