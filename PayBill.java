@@ -83,7 +83,7 @@ public class PayBill extends MainATM {
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         switch (ch){
-            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ "+bal+" บาท"); break;
+            case JOptionPane.YES_OPTION : A[accNo].payBill(fine); JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ "+A[accNo].getBalance()+" บาท"); break;
             case JOptionPane.NO_OPTION : payfinequestion.dispose();
         }
 
@@ -181,10 +181,10 @@ public class PayBill extends MainATM {
             public void actionPerformed(ActionEvent e){
                 double elec = 0;
                 elec = Double.parseDouble(JOptionPane.showInputDialog("How much do you want to pay \"Electricity Bills\" ?"));
-                if(elec<=bal){
-                    bal -= elec;
+                if(elec<=A[accNo].getBalance()){
+                    A[accNo].payBill(elec);
                     String billtype = "Electricity Bills";
-                    JOptionPane.showMessageDialog(null, "You paid "+elec+" baht for "+billtype+"\nYour balance : "+bal+" baht");
+                    JOptionPane.showMessageDialog(null, "You paid "+elec+" baht for "+billtype+"\nYour balance : "+A[accNo].getBalance()+" baht");
                     String billDate = getpaybilldate();
                     A[accNo].setBalance(bal);
                     pbh[count] = new Paybillhistory(billDate, billtype, elec);

@@ -87,7 +87,7 @@ public class Depowith01 extends MainATM{
 
 	
 	public void Deposit(){
-		int depoIN = 0;
+		double depoIN = 0;
 		while(depoIN<0 || depoIN<99 || depoIN%100 != 0){
 			depoIN = Integer.parseInt(JOptionPane.showInputDialog("How much do you want to deposit to your account?"));
 			if(depoIN < 0 || depoIN < 99 || depoIN%100 != 0  ){
@@ -95,9 +95,8 @@ public class Depowith01 extends MainATM{
 			}else{
 				int res = JOptionPane.showConfirmDialog(null, "Are you sure to deposit of THB "+depoIN+" ?", "Deposit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 				if (res == JOptionPane.YES_OPTION){
-					bal += depoIN;
-					double lastBal = bal;
-					A[accNo].setBalance(lastBal);
+					A[accNo].deposit(depoIN);
+					double lastBal = A[accNo].getBalance();
 
 					Calendar d = Calendar.getInstance();
 					SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
@@ -121,7 +120,7 @@ public class Depowith01 extends MainATM{
 }
 
 	public void Withdrew(){
-		int withdrawOUT = 0;
+		double withdrawOUT = 0;
 		do{
 			withdrawOUT = Integer.parseInt(JOptionPane.showInputDialog("How much you do want to withdraw out from your account?"));
 			if(withdrawOUT<0 || withdrawOUT<99 || withdrawOUT%100 != 0){
@@ -129,9 +128,8 @@ public class Depowith01 extends MainATM{
 			}else{
 				int res = JOptionPane.showConfirmDialog(null, "Are you sure to withdraw THB "+withdrawOUT+" from your account?", "Deposit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 				if(res==JOptionPane.YES_OPTION){
-					bal -= withdrawOUT;
-					double lastbal = bal;
-					A[accNo].setBalance(lastbal);
+					A[accNo].withdraw(withdrawOUT);
+					double lastbal = A[accNo].getBalance();
 
 					Calendar d = Calendar.getInstance();
 					SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");

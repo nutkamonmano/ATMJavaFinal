@@ -44,4 +44,19 @@ public class Accounts{
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    public double payBill(double paybill){
+        balance -= paybill;
+        return balance;
+    }
+
+    public double deposit(double deposit){
+        balance += deposit;
+        return balance;
+    }
+
+    public double withdraw (double withdraw){
+        balance -= withdraw;
+        return balance;
+    }
 }
