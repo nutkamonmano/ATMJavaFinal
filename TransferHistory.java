@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TransferHistory {
+public class TransferHistory extends Transfer{
     private String senderAccountNumber; // the sender's account number
     private String receiverAccountNumber; // the receiver's account number
     private double amount; // the amount transferred

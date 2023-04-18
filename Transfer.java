@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Transfer {
+public class Transfer extends Accounts{
     static int ch;
     static int size = 100;
     static int count = 0;
@@ -13,6 +13,7 @@ public class Transfer {
     static double amount = 0;
     static String receiverAccountNumber;
     static TransferHistory[] th = new TransferHistory[size];
+    static Transfer t = new Transfer();
 
     public static void main(String[] args) {
         menu();
@@ -32,14 +33,13 @@ public class Transfer {
         otherAccountBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 menu.dispose();
-                transferQuestion();
+                t.transferQuestion();
             }
         });
 
         historyBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e1) {
-                menu.dispose();
-                transferHistory();
+                JOptionPane.showMessageDialog(null, "ดูประวัติการโอนเงิน");
             }
         });
 
@@ -79,7 +79,6 @@ public class Transfer {
         receiverAccountNumber = receiverAccountNumberStr.trim();
 
         String amountStr = JOptionPane.showInputDialog(panel, "กรุณากรอกจำนวนเงินที่ต้องการโอน:");
-
-        if
+        
     }
 }

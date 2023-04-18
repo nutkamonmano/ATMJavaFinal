@@ -14,6 +14,7 @@ public class PayBill extends MainATM {
     static double fine = 0;
     static String opt;
     static Paybillhistory []pbh = new Paybillhistory[size];
+    static double bal = OS.getBalance();
 
     public static void main(String[] args){
         pb.menu();
@@ -82,7 +83,7 @@ public class PayBill extends MainATM {
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         switch (ch){
-            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ... บาท"); break;
+            case JOptionPane.YES_OPTION : JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ "+bal+" บาท"); break;
             case JOptionPane.NO_OPTION : payfinequestion.dispose();
         }
 
@@ -180,14 +181,15 @@ public class PayBill extends MainATM {
             public void actionPerformed(ActionEvent e){
                 double elec = 0;
                 elec = Double.parseDouble(JOptionPane.showInputDialog("How much do you want to pay \"Electricity Bills\" ?"));
-                if(elec>bal){
-                    JOptionPane.showMessageDialog(null, "Can\'t pay electricity bill due to insuffient balance. Please try again.");
-                }else{
+                if(elec<=bal){
                     bal -= elec;
                     String billtype = "Electricity Bills";
                     JOptionPane.showMessageDialog(null, "You paid "+elec+" baht for "+billtype+"\nYour balance : "+bal+" baht");
                     String billDate = getpaybilldate();
+                    A[accNo].setBalance(bal);
                     pbh[count] = new Paybillhistory(billDate, billtype, elec);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Can\'t pay electricity bill due to insuffient balance. Please try again.");
                 }//add if clause and apply into account classes
             }
         });

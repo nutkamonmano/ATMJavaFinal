@@ -1,4 +1,4 @@
-class Accounts {
+public class Accounts{
     Accounts(){}
     // Accounts(String accID, String accName, Double balance){
     //     this.accID = accID;
@@ -12,13 +12,8 @@ class Accounts {
         this.password = password;
     }
 
-    public void deposit(){
-        
-    }
-
     //Attributes and Operators Below
     protected String password;
-    
     public String getPassword() {
         return password;
     }

@@ -97,6 +97,7 @@ public class Depowith01 extends MainATM{
 				if (res == JOptionPane.YES_OPTION){
 					bal += depoIN;
 					double lastBal = bal;
+					A[accNo].setBalance(lastBal);
 
 					Calendar d = Calendar.getInstance();
 					SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
@@ -130,6 +131,7 @@ public class Depowith01 extends MainATM{
 				if(res==JOptionPane.YES_OPTION){
 					bal -= withdrawOUT;
 					double lastbal = bal;
+					A[accNo].setBalance(lastbal);
 
 					Calendar d = Calendar.getInstance();
 					SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
