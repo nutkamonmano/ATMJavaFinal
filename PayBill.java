@@ -11,10 +11,13 @@ public class PayBill extends MainATM {
     JFrame payfinequestion = new JFrame();
     JFrame finetype = new JFrame();
     JFrame payutil = new JFrame();
+    JFrame phone = new JFrame();
     static double fine = 0;
     static String opt;
     static Paybillhistory []pbh = new Paybillhistory[size];
     static double bal = OS.getBalance();
+
+    static String billtype, billDate;
 
     public static void main(String[] args){
         pb.menu();
@@ -83,7 +86,11 @@ public class PayBill extends MainATM {
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         switch (ch){
-            case JOptionPane.YES_OPTION : A[accNo].payBill(fine); JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ "+A[accNo].getBalance()+" บาท"); break;
+            case JOptionPane.YES_OPTION : A[accNo].payBill(fine); 
+                billDate = getpaybilldate();
+                pbh[count] = new Paybillhistory(billDate, opt, fine);
+                count++;
+                JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ "+A[accNo].getBalance()+" บาท"); break;
             case JOptionPane.NO_OPTION : payfinequestion.dispose();
         }
 
@@ -183,14 +190,29 @@ public class PayBill extends MainATM {
                 elec = Double.parseDouble(JOptionPane.showInputDialog("How much do you want to pay \"Electricity Bills\" ?"));
                 if(elec<=A[accNo].getBalance()){
                     A[accNo].payBill(elec);
-                    String billtype = "Electricity Bills";
+                    billtype = "Electricity Bills";
                     JOptionPane.showMessageDialog(null, "You paid "+elec+" baht for "+billtype+"\nYour balance : "+A[accNo].getBalance()+" baht");
-                    String billDate = getpaybilldate();
-                    A[accNo].setBalance(bal);
+                    billDate = getpaybilldate();
                     pbh[count] = new Paybillhistory(billDate, billtype, elec);
+                    count++;
                 }else{
                     JOptionPane.showMessageDialog(null, "Can\'t pay electricity bill due to insuffient balance. Please try again.");
                 }//add if clause and apply into account classes
+            }
+        });
+
+        waterbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                double water = 0;
+                water = Double.parseDouble(JOptionPane.showInputDialog("How much do you want to pay \"Water Bills\" ?"));
+                if(water<=A[accNo].getBalance()){
+                    A[accNo].payBill(water);
+                    billtype = "Water Bills";
+                    JOptionPane.showMessageDialog(null, "You paid "+water+" baht for "+billtype+"\nYour balance : "+A[accNo].getBalance()+" baht");
+                    billDate = getpaybilldate();
+                    pbh[count] = new Paybillhistory(billDate, billtype, water);
+                    count++;
+                }
             }
         });
     }
@@ -201,5 +223,46 @@ public class PayBill extends MainATM {
 		String billdate = f.format(d.getTime());
 
         return billdate;
+    }
+
+    public void payPhoneandInternet(){
+        JPanel panel = new JPanel();
+        String maintext = "What bills do you want to pay?";
+        String phoneString[] = {"Phone Bills", "Home Internet Bills", "Return and go to last menu"};
+        JButton phonebill = new JButton(phoneString[0]);
+        JButton homeinternetbill = new JButton(phoneString[1]);
+        JButton returnbtn  = new JButton(phoneString[2]);
+        JLabel header = new JLabel("<html><div style = 'text-align: center'><h1>"+maintext+"</h1></div></html>");
+
+        panel.setLayout(new GridLayout(4,1));
+        panel.add(header);
+        panel.add(phonebill);
+        panel.add(homeinternetbill);
+        panel.add(returnbtn);
+
+        phone.add(panel);
+        phone.setSize(300,300);
+        phone.setLocationRelativeTo(null);
+        phone.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        phone.setVisible(true);
+
+        phonebill.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                //pay phone bill
+            }
+        });
+
+        homeinternetbill.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                //pay internet bill
+            }
+        });
+
+        returnbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                phone.dispose();
+                pb.menu();
+            }
+        });
     }
 }
