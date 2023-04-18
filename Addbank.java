@@ -42,7 +42,7 @@ public class Addbank {
     }
 
    //จำลองเงินที่มีอยู่(ลบได้)
-    public Double money;
+    public double money;
     public void setMoney(Double m ){
         this.money = m; 
     }
