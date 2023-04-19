@@ -249,7 +249,16 @@ public class PayBill extends MainATM {
 
         phonebill.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                //pay phone bill
+                String phonenumber = JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease provide your phone number :");
+                if(phonenumber.length() == 9 && phonenumber.length() > 0){
+                    double amount = Double.parseDouble(JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease enter your amonut to pay :"));
+                    if(amount>0){
+                        int ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to number "+phonenumber+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
+                        switch (ans){
+                            
+                        }
+                    }
+                }
             }
         });
 
