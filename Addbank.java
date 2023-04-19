@@ -15,9 +15,7 @@ public class Addbank {
         this.bathtranfer = bathtranfer1; 
     }
 
-    public Addbank(double m){
-        this.money = m;
-    }
+    
 
     public void setBankdate (String bankdate1){
         this.bankdate = bankdate1;
@@ -45,16 +43,7 @@ public class Addbank {
 
     }
 
-   //จำลองเงินที่มีอยู่(ลบได้)
-    public double money;
-    public void setMoney(Double m ){
-        this.money = m; 
-    }
 
-    public Double getMoney(){
-        return money;
-
-    }
 
 
 

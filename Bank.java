@@ -81,11 +81,11 @@ public void tranfer(){
  
     tranfer1 = Double.parseDouble(JOptionPane.showInputDialog("TRANFER"));       
                     
-                
-                if(tranfer1<0){
+                //การโอนจะโอนน้อยกว่า 0 หรือ โอนมากกว่าค่าคงเหลือไม่ได้
+                if(tranfer1<0 || tranfer1>A[accNo].getBalance()){
                 JOptionPane.showMessageDialog(null,"connot");
             }else{
-                double res = JOptionPane.showConfirmDialog(null,"คุณเเน่ใจเเล้วใช่ไหม"+tranfer1+"?");
+                double res = JOptionPane.showConfirmDialog(null,"Are you sure to tranfer THB "+tranfer1+" from your account?","tranfer Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
                     if(res == JOptionPane.YES_OPTION){
                         //m-=tranfer1;
@@ -109,7 +109,7 @@ public void tranfer(){
 public void showbank(){
     String output = "*****************HISTORY TRANFER*****************";
     for(int i=0 ; i<count;i++){
-    output += "\nTRANFER THB"+a[i].getTranfer();
+    output += "\nTRANFER THB "+a[i].getTranfer();
     output +="\nDate : "+a[i].getBankdate();
     output +="\nLast balance : THB "+a[i].getBathtranfer();
     output +="\n********************************************************";
