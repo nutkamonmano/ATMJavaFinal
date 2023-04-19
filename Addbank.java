@@ -1,17 +1,17 @@
 public class Addbank {
     public String bankdate;
     //เงินที่จะโอน
-    public double tranfer;
+    public double tranferin;
     //คงเหลือ
     public double bathtranfer;
 
-    //public Addbank(String bankdate1,double tranfer1,double bathtranfer1){
-    //    this.bankdate = bankdate1;
-    //    this.tranfer = tranfer1;
-     //   this.bathtranfer = bathtranfer1; 
-  //  }
+    public Addbank(String bankdate1,double tranfer1,double bathtranfer1){
+        this.bankdate = bankdate1;
+        this.tranferin = tranfer1;
+        this.bathtranfer = bathtranfer1; 
+   }
     public Addbank(double tranfer1,double bathtranfer1){
-        this.tranfer = tranfer1;
+        this.tranferin = tranfer1;
         this.bathtranfer = bathtranfer1; 
     }
 
@@ -28,11 +28,11 @@ public class Addbank {
     }
 
     public void setTranfer(Double tranfer1 ){
-        this.tranfer = tranfer1;
+        this.tranferin = tranfer1;
     }
 
     public Double getTranfer(){
-        return tranfer;
+        return tranferin;
 
     }
 

@@ -3,9 +3,12 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
-public class Bank {
+
+public class Bank extends MainATM {
     static Bank b = new Bank();
     static Depohis []d = new Depohis[1000];
     static Addbank []a = new Addbank[1000];
@@ -24,7 +27,7 @@ public class Bank {
         String Lb = "Money Transfer";
         JLabel label = new JLabel("<html><div style = 'text -align:center'><h1>"+Lb+"</h1></html>",SwingConstants.LEFT);
         
-        JButton bbutton = new JButton("baba");
+        
         JButton bkbutton = new JButton("Tranfer");
         JButton sbbutton = new JButton("ShowTransfer");
         
@@ -32,7 +35,7 @@ public class Bank {
 
         panel1.setLayout(new GridLayout(3,1));
 
-        panel1.add(bbutton);
+        
         panel1.add(bkbutton);
         panel1.add(sbbutton);
         
@@ -47,19 +50,13 @@ public class Bank {
 
 
 
-        bbutton.addActionListener(new ActionListener (){
-			public void actionPerformed(ActionEvent e){
-				menu.dispose();
-				b.baba();
-				b.menu();
-			}
-		});
+        
 
 
         bkbutton.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				menu.dispose();
-				b.bank(1000);
+				b.tranfer();
 				b.menu();
 			}
 		});
@@ -75,16 +72,10 @@ public class Bank {
 
     }
         
-public Double baba(){  
-Double m;
-m = Double.parseDouble(JOptionPane.showInputDialog("sai money"));
-a[countt] = new Addbank(m);
-return m;
-countt++;
-}        
+    
 
 
-public void bank(double m){
+public void tranfer(){
    // string account;
     Double tranfer1 = 0.00;
  
@@ -97,10 +88,14 @@ public void bank(double m){
                 double res = JOptionPane.showConfirmDialog(null,"คุณเเน่ใจเเล้วใช่ไหม"+tranfer1+"?");
 
                     if(res == JOptionPane.YES_OPTION){
-                        m-=tranfer1;
-                        double bathtranfer1 = m;
+                        //m-=tranfer1;
+                        A[accNo].tranfer(tranfer1);
+                        double bathtranfer1 = A[accNo].getBalance();
                         
-                        a[count] = new Addbank(tranfer1,bathtranfer1);
+                        Calendar d = Calendar.getInstance();
+                        SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
+                        String bankdate1 = f.format(d.getTime());
+                        a[count] = new Addbank(bankdate1,tranfer1,bathtranfer1);
                     }
                    
 
@@ -115,7 +110,7 @@ public void showbank(){
     String output = "*****************HISTORY TRANFER*****************";
     for(int i=0 ; i<count;i++){
     output += "\nTRANFER THB"+a[i].getTranfer();
-    output +="\nDate : ";
+    output +="\nDate : "+a[i].getBankdate();
     output +="\nLast balance : THB "+a[i].getBathtranfer();
     output +="\n********************************************************";
     }

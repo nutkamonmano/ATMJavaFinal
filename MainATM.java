@@ -7,6 +7,7 @@ public class MainATM extends Accounts{
 	static MainATM OS = new MainATM();
     static PayBill pb = new PayBill();
     static Depowith01 d = new Depowith01();
+    static Bank b = new Bank();
     static int countA = 0;
     static Accounts []A = new Accounts[size];
     public double bal = 0;
@@ -170,6 +171,7 @@ public class MainATM extends Accounts{
         trfbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JOptionPane.showMessageDialog(null, "Proceed to Transfer Section");
+                b.menu();
             }
         });
 
