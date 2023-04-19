@@ -10,8 +10,9 @@ import java.util.Calendar;
 
 public class Bank extends MainATM {
     static Bank b = new Bank();
-    static Depohis []d = new Depohis[1000];
-    static Addbank []a = new Addbank[1000];
+    static int size = 1000;
+    static Depohis []d = new Depohis[size];
+    static Addbank []a = new Addbank[size];
     static int count=0,countt=0;
 
         JFrame menu = new JFrame("Money Transfer");
@@ -94,11 +95,11 @@ public void tranfer(){
                         SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
                         String bankdate1 = f.format(d.getTime());
                         a[count] = new Addbank(bankdate1,tranfer1,bathtranfer1);
+                        count++;
                     }
                    
 
             }
-            count++;
         }
             
 
