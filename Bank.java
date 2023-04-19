@@ -78,14 +78,13 @@ public class Bank extends MainATM {
 public void tranfer(){
    // string account;
     Double tranfer1 = 0.00;
- 
-    tranfer1 = Double.parseDouble(JOptionPane.showInputDialog("TRANFER"));       
-                    
-                //การโอนจะโอนน้อยกว่า 0 หรือ โอนมากกว่าค่าคงเหลือไม่ได้
-                if(tranfer1<0 || tranfer1>A[accNo].getBalance()){
-                JOptionPane.showMessageDialog(null,"connot");
-            }else{
-                double res = JOptionPane.showConfirmDialog(null,"Are you sure to tranfer THB "+tranfer1+" from your account?","tranfer Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
+            tranfer1 = Double.parseDouble(JOptionPane.showInputDialog("TRANFER"));        
+                //การโอนจะโอนน้อยกว่า 0 หรือ มากกว่ายอดคงเหลือไม่ได้
+                if(tranfer1<=0 || tranfer1>A[accNo].getBalance()){
+                    JOptionPane.showMessageDialog(null,"connot");
+                     }else{
+                         double res = JOptionPane.showConfirmDialog(null,"Are you sure to tranfer THB "+tranfer1+" from your account?","tranfer Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
                     if(res == JOptionPane.YES_OPTION){
                         //m-=tranfer1;
