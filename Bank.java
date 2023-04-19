@@ -87,7 +87,6 @@ public void tranfer(){
                          double res = JOptionPane.showConfirmDialog(null,"Are you sure to tranfer THB "+tranfer1+" from your account?","tranfer Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 
                     if(res == JOptionPane.YES_OPTION){
-                        //m-=tranfer1;
                         A[accNo].tranfer(tranfer1);
                         double bathtranfer1 = A[accNo].getBalance();
                         

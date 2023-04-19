@@ -1,4 +1,4 @@
-public class Addbank {
+public class Addbank extends Accounts{
     public String bankdate;
     //เงินที่จะโอน
     public double tranferin;
