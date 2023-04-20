@@ -250,27 +250,50 @@ public class PayBill extends MainATM {
         phonebill.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 String phonenumber = "";
-                int ans;
+                double amount =0;
                 do{
                     phonenumber = JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease provide your phone number :");
                     if(phonenumber.length() == 9 && phonenumber.length() > 0){
-                        double amount = Double.parseDouble(JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease enter your amonut to pay :"));
+                        amount = Double.parseDouble(JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease enter your amonut to pay :"));
                         if(amount>0){
-                            ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to number "+phonenumber+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
-                            // switch (ans){
-                            //     case JOptionPane.YES_OPTION : A[accNo].payBill(amount); billDate = getpaybilldate(); billtype = "Phone bill number: "+phonenumber;
-                            //         pbh[count] = new Paybillhistory(billDate, billtype, amount); count++; break;
-                            //     case JOptionPane.NO_OPTION : JOptionPane.showMessageDialog(null, "You've cancelled your payment..."); break;
-                            // }
+                            int ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to number "+phonenumber+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
+                            if(ans == JOptionPane.YES_OPTION){
+                                A[accNo].payBill(amount); 
+                                billDate = getpaybilldate(); 
+                                billtype = "Phone bill number: "+phonenumber;
+                                pbh[count] = new Paybillhistory(billDate, billtype, amount); 
+                                count++;
+                            }else{
+                                JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
+                            }
                         }
                     }
-                }while((phonenumber.length()!=9 && phonenumber.length()<0));
+                }while((phonenumber.length()!=9 && phonenumber.length()<0 && amount<0));
             }
         });
 
         homeinternetbill.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                //pay internet bill
+                String internetid;
+                double amount = 0;
+                do {
+                    internetid = JOptionPane.showInputDialog("Please input your 10-digit internet ID :");
+                    if(internetid.length()==9&&internetid.length()>0){
+                        amount = Double.parseDouble(JOptionPane.showInputDialog("Please enter your amonut to pay to internet ID "+internetid+" :"));
+                        if(amount>0){
+                            int ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to internet ID "+internetid+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
+                            if(ans == JOptionPane.YES_OPTION){
+                                A[accNo].payBill(amount); 
+                                billDate = getpaybilldate(); 
+                                billtype = "Internet bill ID: "+internetid;
+                                pbh[count] = new Paybillhistory(billDate, billtype, amount); 
+                                count++;
+                            }else{
+                                JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
+                            }
+                        }
+                    }
+                } while (internetid.length()!=9&&internetid.length()<0&&amount<0);
             }
         });
 
