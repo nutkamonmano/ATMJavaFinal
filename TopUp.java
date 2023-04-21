@@ -10,8 +10,6 @@ public class  TopUp extends MainATM{
   static TopUp T = new TopUp();
   
   static TopUpHistory []Tuphistory = new TopUpHistory[size];
-  static Volet []V = new Volet[size];
-  static EasyPass []E = new EasyPass[size];
   static int count=0;
   static double money = 0;
   static double lastbal = 0;

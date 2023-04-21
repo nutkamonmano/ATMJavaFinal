@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class Depowith01 extends MainATM{
 	static Depowith01 d = new Depowith01();
-	static Call c = new Call();
 	static int size = 100;
 	static Depohis []dphistory = new Depohis[size];
 	static Withdrawhis []withdrawhistory = new Withdrawhis[size];
