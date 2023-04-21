@@ -44,7 +44,6 @@ public class Bank extends MainATM {
         menu.add(panel1,BorderLayout.CENTER);
 
         menu.setSize(300,300);
-        exbutton.setSize(100,100);
 		menu.setLocationRelativeTo(null);
 		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu.setVisible(true);
