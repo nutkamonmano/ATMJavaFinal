@@ -15,7 +15,7 @@ public class PayBill extends MainATM {
     static double fine = 0;
     static String opt;
     static Paybillhistory []pbh = new Paybillhistory[size];
-    static double bal = OS.getBalance();
+    static double lastbal = 0;
 
     static String billtype, billDate;
 
@@ -24,15 +24,16 @@ public class PayBill extends MainATM {
     }
 
     public void menu(){
-        JFrame menu = new JFrame("จ่ายบิล");
+        JFrame menu = new JFrame("Pay bill");
         JPanel mpanel = new JPanel();
         JPanel mpanel2 = new JPanel();
-        String mm = "คุณต้องการที่จะจ่ายบิลใด";
+        String mm = "What bill(s) do you want to pay ?";
         JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
-        JButton finebtn = new JButton("ค่าปรับ");
-        JButton utilsbtn = new JButton("ค่าน้ำ/ค่าไฟ");
-        JButton phoneandinternetbtn = new JButton("ค่่าโทรศัพท์/ค่าอินเทอร์เน็ต");
-        JButton returnbtn = new JButton("กลับหน้าหลัก");
+        JButton finebtn = new JButton("Fine bills");
+        JButton utilsbtn = new JButton("Utility bills");
+        JButton phoneandinternetbtn = new JButton("Phone/Internet Bills");
+        JButton history = new JButton("Show bill pay history")
+        JButton returnbtn = new JButton("Return to home");
 
         finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -55,6 +56,13 @@ public class PayBill extends MainATM {
             }
         });
 
+        history.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                menu.dispose();
+                pb.showhistory();
+            }
+        });
+
         returnbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 menu.dispose();
@@ -68,6 +76,7 @@ public class PayBill extends MainATM {
         mpanel.add(finebtn);
         mpanel.add(utilsbtn);
         mpanel.add(phoneandinternetbtn);
+        mpanel.add(history);
         mpanel2.add(returnbtn, SwingConstants.CENTER);
         
         menu.add(mainmenu, BorderLayout.NORTH);
@@ -81,24 +90,25 @@ public class PayBill extends MainATM {
     }
 
     public void payFineQuestion(){
-        String question = "คุณต้องการที่จะชำระ"+opt+" หรือไม่ ?";
+        String question = "Do you want to pay "+opt+" ?";
 
-        int ch = JOptionPane.showConfirmDialog(payfinequestion, question, "จ่ายค่าปรับจราจร", 
+        int ch = JOptionPane.showConfirmDialog(payfinequestion, question, "Pay Fine Bills", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         switch (ch){
             case JOptionPane.YES_OPTION : A[accNo].payBill(fine); 
+                lastbal = A[accNo].getBalance();
                 billDate = getpaybilldate();
-                pbh[count] = new Paybillhistory(billDate, opt, fine);
+                pbh[count] = new Paybillhistory(billDate, opt, fine, lastbal);
                 count++;
-                JOptionPane.showMessageDialog(null, "คุณได้ชำระเงิน "+fine+" บาท เพื่อจ่าย"+opt+"เสร็จสิ้นแล้ว\nยอดเงินคงเหลือ "+A[accNo].getBalance()+" บาท"); break;
+                JOptionPane.showMessageDialog(null, "You have paid "+fine+" baht for paying "+opt+" successfully\nYour Balance : "+A[accNo].getBalance()+" baht"); break;
             case JOptionPane.NO_OPTION : payfinequestion.dispose();
         }
 
     }
 
     public void chooseFineType(){
-        String ftq = "คุณต้องการที่จะชำระค่าปรับใด";
+        String ftq = "What type of fines do you want to pay?";
         JPanel ftypePanel = new JPanel();
         String finestring[] = {"ค่าปรับ ข้อหาขับรถเร็วกว่าความเร็วที่กำหนด", "ค่าปรับ ข้อหาขับรถผ่าสัญญาณไฟจราจร", "ค่าปรับ ข้อหากลับรถในที่ห้ามกลับรถ", "ยกเลิก และกลับหน้าหลัก"};
         JButton speedbtn = new JButton(finestring[0]);
@@ -192,9 +202,10 @@ public class PayBill extends MainATM {
                 if(elec<=A[accNo].getBalance()){
                     A[accNo].payBill(elec);
                     billtype = "Electricity Bills";
+                    lastbal = A[accNo].getBalance();
                     JOptionPane.showMessageDialog(null, "You paid "+elec+" baht for "+billtype+"\nYour balance : "+A[accNo].getBalance()+" baht");
                     billDate = getpaybilldate();
-                    pbh[count] = new Paybillhistory(billDate, billtype, elec);
+                    pbh[count] = new Paybillhistory(billDate, billtype, elec, lastbal);
                     count++;
                 }else{
                     JOptionPane.showMessageDialog(null, "Can\'t pay electricity bill due to insuffient balance. Please try again.");
@@ -208,10 +219,11 @@ public class PayBill extends MainATM {
                 water = Double.parseDouble(JOptionPane.showInputDialog("How much do you want to pay \"Water Bills\" ?"));
                 if(water<=A[accNo].getBalance()){
                     A[accNo].payBill(water);
+                    lastbal = A[accNo].getBalance();
                     billtype = "Water Bills";
                     JOptionPane.showMessageDialog(null, "You paid "+water+" baht for "+billtype+"\nYour balance : "+A[accNo].getBalance()+" baht");
                     billDate = getpaybilldate();
-                    pbh[count] = new Paybillhistory(billDate, billtype, water);
+                    pbh[count] = new Paybillhistory(billDate, billtype, water, lastbal);
                     count++;
                 }
             }
@@ -250,27 +262,52 @@ public class PayBill extends MainATM {
         phonebill.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 String phonenumber = "";
-                int ans;
+                double amount =0;
                 do{
                     phonenumber = JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease provide your phone number :");
                     if(phonenumber.length() == 9 && phonenumber.length() > 0){
-                        double amount = Double.parseDouble(JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease enter your amonut to pay :"));
+                        amount = Double.parseDouble(JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease enter your amonut to pay :"));
                         if(amount>0){
-                            ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to number "+phonenumber+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
-                            // switch (ans){
-                            //     case JOptionPane.YES_OPTION : A[accNo].payBill(amount); billDate = getpaybilldate(); billtype = "Phone bill number: "+phonenumber;
-                            //         pbh[count] = new Paybillhistory(billDate, billtype, amount); count++; break;
-                            //     case JOptionPane.NO_OPTION : JOptionPane.showMessageDialog(null, "You've cancelled your payment..."); break;
-                            // }
+                            int ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to number "+phonenumber+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
+                            if(ans == JOptionPane.YES_OPTION){
+                                A[accNo].payBill(amount); 
+                                lastbal = A[accNo].getBalance();
+                                billDate = getpaybilldate(); 
+                                billtype = "Phone bill number: "+phonenumber;
+                                pbh[count] = new Paybillhistory(billDate, billtype, amount, lastbal); 
+                                count++;
+                            }else{
+                                JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
+                            }
                         }
                     }
-                }while((phonenumber.length()!=9 && phonenumber.length()<0));
+                }while((phonenumber.length()!=9 && phonenumber.length()<0 && amount<0));
             }
         });
 
         homeinternetbill.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                //pay internet bill
+                String internetid;
+                double amount = 0;
+                do {
+                    internetid = JOptionPane.showInputDialog("Please input your 10-digit internet ID :");
+                    if(internetid.length()==9&&internetid.length()>0){
+                        amount = Double.parseDouble(JOptionPane.showInputDialog("Please enter your amonut to pay to internet ID "+internetid+" :"));
+                        if(amount>0){
+                            int ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to internet ID "+internetid+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
+                            if(ans == JOptionPane.YES_OPTION){
+                                A[accNo].payBill(amount); 
+                                lastbal = A[accNo].getBalance();
+                                billDate = getpaybilldate(); 
+                                billtype = "Internet bill ID: "+internetid;
+                                pbh[count] = new Paybillhistory(billDate, billtype, amount, lastbal); 
+                                count++;
+                            }else{
+                                JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
+                            }
+                        }
+                    }
+                } while (internetid.length()!=9&&internetid.length()<0&&amount<0);
             }
         });
 
@@ -280,5 +317,17 @@ public class PayBill extends MainATM {
                 pb.menu();
             }
         });
+    }
+
+    public void showhistory(){
+        String output = "Pay bill history";
+        for(int i=0; i<count; i++){
+            output += "\n\nBill type : "+pbh[i].getBilltype();
+            output += "\nIssue date : "+pbh[i].getBilldate();
+            output += "\nAmount : "+pbh[i].getAmount();
+            output += "\nLast balance : "+pbh[i].getLastbal();
+        }
+        JOptionPane.showMessageDialog(null, output);
+        pb.menu();
     }
 }

@@ -64,4 +64,9 @@ public class Accounts{
         balance -= tranfer;
         return balance;
     }
+
+    public double topup (double topup){
+        balance -= topup;
+        return balance;
+    }
 }
