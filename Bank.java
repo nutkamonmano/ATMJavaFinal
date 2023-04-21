@@ -116,7 +116,7 @@ public void showbank(){
     for(int i=0 ; i<count;i++){
     output += "\nTRANFER THB "+a[i].getTranfer();
     output +="\nDate : "+a[i].getBankdate();
-    output +="\nLast balance : THB "+a[i].getBathtranfer();
+    output +="\nLast balance since deposit : THB"+a[i].getBathtranfer();
     output +="\n********************************************************";
     }
      
