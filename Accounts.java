@@ -59,4 +59,9 @@ public class Accounts{
         balance -= withdraw;
         return balance;
     }
+
+    public double tranfer (double tranfer){
+        balance -= tranfer;
+        return balance;
+    }
 }
