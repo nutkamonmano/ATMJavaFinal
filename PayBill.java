@@ -32,6 +32,7 @@ public class PayBill extends MainATM {
         JButton finebtn = new JButton("Fine bills");
         JButton utilsbtn = new JButton("Utility bills");
         JButton phoneandinternetbtn = new JButton("Phone/Internet Bills");
+        JButton history = new JButton("Show bill pay history")
         JButton returnbtn = new JButton("Return to home");
 
         finebtn.addActionListener(new ActionListener(){
@@ -55,6 +56,13 @@ public class PayBill extends MainATM {
             }
         });
 
+        history.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                menu.dispose();
+                pb.showhistory();
+            }
+        });
+
         returnbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 menu.dispose();
@@ -68,6 +76,7 @@ public class PayBill extends MainATM {
         mpanel.add(finebtn);
         mpanel.add(utilsbtn);
         mpanel.add(phoneandinternetbtn);
+        mpanel.add(history);
         mpanel2.add(returnbtn, SwingConstants.CENTER);
         
         menu.add(mainmenu, BorderLayout.NORTH);
@@ -319,5 +328,6 @@ public class PayBill extends MainATM {
             output += "\nLast balance : "+pbh[i].getLastbal();
         }
         JOptionPane.showMessageDialog(null, output);
+        pb.menu();
     }
 }
