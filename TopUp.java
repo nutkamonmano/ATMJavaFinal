@@ -1,38 +1,56 @@
-import java.util.Date;
 import javax.swing.*;
+import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-class  TopUp extends Accounts{
-  static final int max  = 4;
+import java.text.SimpleDateFormat;
+
+public class  TopUp extends MainATM{
+  static int size = 100;
   static TopUp T = new TopUp();
   
-  //static TopUpHistory []Tuphistory = new TopUpHistory[max];
-  static Volet []V = new Volet[max];
-  static EasyPass []E = new EasyPass[max];
-  static int countV=0,countE=0;
+  static TopUpHistory []Tuphistory = new TopUpHistory[size];
+  static Volet []V = new Volet[size];
+  static EasyPass []E = new EasyPass[size];
+  static int count=0;
+  static double money = 0;
+  static double lastbal = 0;
+  static String topupdate;
+
+
+  public String gettopupdate(){
+	Calendar d = Calendar.getInstance();
+	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
+	String topupdate = f.format(d.getTime());
+
+	return topupdate; 
+  }
 
   JFrame menu = new JFrame("Main Menu...");
 
 
   public void AddVolet(){
-     double inputvo;
-	 String inputvnumber;
-       inputvnumber = JOptionPane.showInputDialog("Input Number Volet :");
+	 double inputvo = 0;
+	 String inputvnumber = JOptionPane.showInputDialog("Input Number Volet :");
 	   inputvo = Double.parseDouble(JOptionPane.showInputDialog("Input Volet :"));
-	    V[countV] = new Volet(inputvo,inputvnumber);
-        countV ++;
+	   A[accNo].topup(inputvo);
+	   double money = A[accNo].getBalance();
+	   String topuptype = "Top Up Wallet number "+inputvnumber;
+	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inputvo, money);
+        count ++;
 		T.menu();
   }
 
   public void AddEasyPass(){
-     double inpute;
+	 double inpute;
 	 String inputenumber;
 	   inputenumber = JOptionPane.showInputDialog("Input Number Easy pass :");
        inpute = Double.parseDouble(JOptionPane.showInputDialog("Input Easy pass :"));
-	    E[countE] = new EasyPass(inpute,inputenumber);
-        countE ++;
+	   A[accNo].topup(inpute);
+	   double money = A[accNo].getBalance();
+	   String topuptype = "Top Up Easy Pass number "+inputenumber;
+	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inpute, money);
+        count ++;
 		T.menu();
   }
 
@@ -104,33 +122,17 @@ class  TopUp extends Accounts{
 
 
 }
-
-Date date = new Date();
    
-   public void Show(){
+   public void Show(){ //แก้อันนี้ให้ตรงกับ top up history
    String output =  "\n------------------------ Show List  ------------------------";
-   for(int i = 0; i<countV;i++){
-		  output += "\n[Top up wallet]";
-          output += "\nShow Number Volet : " + V[i].getinputvnumber();
-		  output += "\nShow Volet : " + V[i].getinputvo();
-		  output += "\nCurrent Date : " + date.toString();
+   for(int i = 0; i<count;i++){
+		  output += "\nTop Up type : "+Tuphistory[i].getTopuptype();
+		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();
+          output += "\nAmount : "+Tuphistory[i].getTopup();
+		  output += "\nLast Balance : "+Tuphistory[i].getLastbal();
 		  output += "\n\n----------------------------------------------------------------";
-          A[accNo].Volet(inputvo);
-		  double lastBal = A[accNo].getBalance();
-		  Tuphistory[countd] = new TopUpHistory(topupdate, topup, lastbal);
-   }
-
-   for(int i = 0; i<countE;i++){
-	      output += "\n[Top up Easy Pass]";
-          output += "\nShow Number Easy Pass : " + E[i].getinputenumber();
-		  output += "\nShow Easy Pass : " + E[i].getinpute();
-		  output += "\nCurrent Date : " + date.toString();
-		  output += "\n\n----------------------------------------------------------------";
-          A[accNo].EasyPass(inpute);
-		  double lastBal = A[accNo].getBalance();
-		  Tuphistory[countd] = new TopUpHistory(topupdate, topup, lastbal);
-   }
           
+   }          
 		  JOptionPane.showMessageDialog(null,output);
 }
 
