@@ -1,4 +1,3 @@
-import javax.swing.JOptionPane;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,15 +12,12 @@ public class Bank extends MainATM {
     static int size = 1000;
     static Depohis []d = new Depohis[size];
     static Addbank []a = new Addbank[size];
-    static int count=0,countt=0;
+    static int count=0;
 
         JFrame menu = new JFrame("Money Transfer");
     public static void main(String[] args){
         b.menu();
     }
-
-
-
 
     public void menu(){
         JPanel panel1 = new JPanel();
@@ -31,14 +27,17 @@ public class Bank extends MainATM {
         
         JButton bkbutton = new JButton("Tranfer");
         JButton sbbutton = new JButton("ShowTransfer");
+        JButton exbutton = new JButton("Quit");
         
 
 
         panel1.setLayout(new GridLayout(3,1));
+    
 
         
         panel1.add(bkbutton);
         panel1.add(sbbutton);
+        panel1.add(exbutton);
         
 
         menu.add(label,BorderLayout.NORTH);
@@ -49,11 +48,8 @@ public class Bank extends MainATM {
 		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu.setVisible(true);
 
-
-
         
-
-
+        
         bkbutton.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 				menu.dispose();
@@ -62,6 +58,7 @@ public class Bank extends MainATM {
 			}
 		});
 
+
         sbbutton.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 			menu.dispose();
@@ -69,7 +66,16 @@ public class Bank extends MainATM {
             b.menu();
 			}
 		});
+        
 
+
+        exbutton.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent e){
+			menu.dispose();
+			OS.menu();
+			}
+		});
+        
 
     }
         
