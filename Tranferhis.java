@@ -1,16 +1,16 @@
-public class Addbank extends Accounts{
+public class Tranferhis extends Accounts{
     public String bankdate;
     //เงินที่จะโอน
     public double tranferin;
     //คงเหลือ
     public double bathtranfer;
 
-    public Addbank(String bankdate1,double tranfer1,double bathtranfer1){
+    public Tranferhis(String bankdate1,double tranfer1,double bathtranfer1){
         this.bankdate = bankdate1;
         this.tranferin = tranfer1;
         this.bathtranfer = bathtranfer1; 
    }
-    public Addbank(double tranfer1,double bathtranfer1){
+    public Tranferhis(double tranfer1,double bathtranfer1){
         this.tranferin = tranfer1;
         this.bathtranfer = bathtranfer1; 
     }

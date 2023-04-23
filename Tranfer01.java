@@ -7,11 +7,11 @@ import java.util.Calendar;
 
 
 
-public class Bank extends MainATM {
-    static Bank b = new Bank();
+public class Tranfer01 extends MainATM {
+    static Tranfer01 b = new Tranfer01();
     static int size = 1000;
     static Depohis []d = new Depohis[size];
-    static Addbank []a = new Addbank[size];
+    static Tranferhis []a = new Tranferhis[size];
     static int count=0;
 
         JFrame menu = new JFrame("Money Transfer");
@@ -100,7 +100,7 @@ public void tranfer(){
                         Calendar d = Calendar.getInstance();
                         SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");
                         String bankdate1 = f.format(d.getTime());
-                        a[count] = new Addbank(bankdate1,tranfer1,bathtranfer1);
+                        a[count] = new Tranferhis(bankdate1,tranfer1,bathtranfer1);
                         count++;
                     }
                    

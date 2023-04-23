@@ -7,7 +7,7 @@ public class MainATM extends Accounts{
 	static MainATM OS = new MainATM();
     static PayBill pb = new PayBill();
     static Depowith01 d = new Depowith01();
-    static Bank b = new Bank();
+    static Tranfer01 b = new Tranfer01();
     static int countA = 0;
     static Accounts []A = new Accounts[size];
     public double bal = 0;
