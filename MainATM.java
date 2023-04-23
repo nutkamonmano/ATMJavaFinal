@@ -3,15 +3,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class MainATM extends Accounts{
-    static final int size = 10;
+    static final int size = 100;
 	static MainATM OS = new MainATM();
     static PayBill pb = new PayBill();
     static Depowith01 d = new Depowith01();
     static Tranfer01 b = new Tranfer01();
-    static int countA = 0;
+    static TopUp T = new TopUp();
+    static int countA = 4;
     static Accounts []A = new Accounts[size];
     public double bal = 0;
     static int accNo = 0;
+    static int i;
+    static int attempt = 0;
+    static boolean loginstatus = false;
+
+    static JTextField idlogin = new JTextField(10);
+    static JPasswordField passlogin = new JPasswordField(10);
 
     JFrame menu = new JFrame("Main Menu...");
     JFrame exitframe = new JFrame();
@@ -20,6 +27,10 @@ public class MainATM extends Accounts{
     JFrame LOGIN = new JFrame("Login account");
 
     public static void main(String[] args){
+        A[0] = new Accounts("651435", "Nutkamon Manosatcharak", "nutkamon0");
+        A[1] = new Accounts("650873", "Sopida Chiangsaen", "11111111");
+        A[2] = new Accounts("651688", "Thanaphat Mothong", "11111111");
+        A[3] = new Accounts("godmode", "GOD", "godmode");
         OS.createStartupWindow();
     }
 
@@ -39,7 +50,7 @@ public class MainATM extends Accounts{
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, stringArray, stringArray[0]);
         
         switch (result){
-            case JOptionPane.YES_OPTION : menu.dispose(); break;
+            case JOptionPane.YES_OPTION : System.exit(0); break;
             case JOptionPane.NO_OPTION : menu.dispose(); OS.createStartupWindow(); break;
             case JOptionPane.CANCEL_OPTION : break;
         }
@@ -81,10 +92,10 @@ public class MainATM extends Accounts{
                 bal = A[accNo].getBalance();
                 
                 regisFrame.dispose();
-                String out = "Account details: \n"+A[countA].getAccID()+"\n"+A[countA].getAccName()+"\n"+"pass: "+A[countA].getPassword();
+                String out = "Account details: \nAccount ID : "+A[countA].getAccID()+"\nAccount Name : "+A[countA].getAccName();
                 JOptionPane.showMessageDialog(null, out);
                 
-                countA = countA+1;
+                countA++;
                 OS.menu();
             }
         });
@@ -100,8 +111,6 @@ public class MainATM extends Accounts{
     public void login(){
         //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
         JPanel loginpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JTextField idlogin = new JTextField(10);
-        JTextField passlogin = new JTextField(10);
 
         //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
         LOGIN.setLayout(new GridLayout(3,1));
@@ -122,17 +131,26 @@ public class MainATM extends Accounts{
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                //codeauthentication
-                for (int i = 0; i < countA; i++) {
-                    String user = idlogin.getText();
-                    String pw = passlogin.getText();
-                    if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
+                char[] pw1 = passlogin.getPassword();
+                String pw = new String(pw1);
+                String user = idlogin.getText();
+                if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
                         A[i].setBalance(bal);
                         accNo = i;
+                        loginstatus = true;
                         OS.menu();
                         LOGIN.dispose();
+                }else{
+                    attempt++;
+                    if(attempt == 4){
+                        JOptionPane.showMessageDialog(null, "You've exceeded the attempts. Program will terminate.");
+                        System.exit(0);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Incorrect password, you have "+(4-attempt)+" attempt(s) remaining...");
+                        idlogin.setText("");
+                        passlogin.setText("");
                     }
-                }
+                }                   
             }
         });
 
@@ -149,22 +167,17 @@ public class MainATM extends Accounts{
         JPanel mpanel2 = new JPanel();
         String mm = "Main Menu";
         JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
-        JButton depbtn = new JButton("Deposit");
-        JButton wtdbtn = new JButton("Withdrawal");
+        JButton depbtn = new JButton("Deposit/Withdrawal");
         JButton trfbtn = new JButton("Transfer");
-        JButton tupbtn = new JButton("Top-Up & Pay");
+        JButton pbbtn = new JButton("Pay Bills");
+        JButton tupbtn = new JButton("Top Up");
+
         JButton logoutbtn = new JButton("Logout / Exit");
 
         depbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Deposit Section");
+                menu.dispose();
                 d.manu();
-            }
-        });
-
-        wtdbtn.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Withdrawal Section");
             }
         });
 
@@ -175,11 +188,17 @@ public class MainATM extends Accounts{
             }
         });
 
-        tupbtn.addActionListener(new ActionListener(){
+        pbbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 // JOptionPane.showMessageDialog(null, "Proceed to Top-Up Section");
                 pb.menu();
                 menu.dispose();
+            }
+        });
+
+        tupbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                T.menu();
             }
         });
 
@@ -192,8 +211,8 @@ public class MainATM extends Accounts{
         mpanel.setLayout(new GridLayout(4,2));
         mpanel2.setLayout(new GridLayout(1,1));
         mpanel.add(depbtn);
-        mpanel.add(wtdbtn);
         mpanel.add(trfbtn);
+        mpanel.add(pbbtn);
         mpanel.add(tupbtn);
         mpanel2.add(logoutbtn);
         

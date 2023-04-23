@@ -79,6 +79,7 @@ public class Depowith01 extends MainATM{
 		exbutton.addActionListener(new ActionListener (){
 			public void actionPerformed(ActionEvent e){
 			manu.dispose();
+			OS.menu();
 			}
 		});
 

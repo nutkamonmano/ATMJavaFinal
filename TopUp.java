@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 
 public class  TopUp extends MainATM{
   static int size = 100;
-  static TopUp T = new TopUp();
+  
   
   static TopUpHistory []Tuphistory = new TopUpHistory[size];
   static int count=0;
