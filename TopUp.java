@@ -24,13 +24,13 @@ public class  TopUp extends MainATM{
 	return topupdate; 
   }
 
-  JFrame menu = new JFrame("Main Menu...");
+  JFrame menu = new JFrame("Top Up Menu");
 
 
   public void AddVolet(){
 	 double inputvo = 0;
-	 String inputvnumber = JOptionPane.showInputDialog("Input Number Volet :");
-	   inputvo = Double.parseDouble(JOptionPane.showInputDialog("Input Volet :"));
+	 String inputvnumber = JOptionPane.showInputDialog("Input your wallet number :");
+	   inputvo = Double.parseDouble(JOptionPane.showInputDialog("Input amount you want to top up to your wallet :"));
 	   A[accNo].topup(inputvo);
 	   double money = A[accNo].getBalance();
 	   String topuptype = "Top Up Wallet number "+inputvnumber;
@@ -42,8 +42,8 @@ public class  TopUp extends MainATM{
   public void AddEasyPass(){
 	 double inpute;
 	 String inputenumber;
-	   inputenumber = JOptionPane.showInputDialog("Input Number Easy pass :");
-       inpute = Double.parseDouble(JOptionPane.showInputDialog("Input Easy pass :"));
+	   inputenumber = JOptionPane.showInputDialog("Input Easy Pass number :");
+       inpute = Double.parseDouble(JOptionPane.showInputDialog("Input amount you want to top up to your Easy pass :"));
 	   A[accNo].topup(inpute);
 	   double money = A[accNo].getBalance();
 	   String topuptype = "Top Up Easy Pass number "+inputenumber;
@@ -59,14 +59,14 @@ public class  TopUp extends MainATM{
 
 	public void menu(){
 		JPanel panel1 = new JPanel(); 
-		String lb = "Main Menu";
+		String lb = "What do you want to top up?";
 		JLabel label = new JLabel("<html><div style = 'text-align: center'><h1>"+lb+"</h1></div></html>",SwingConstants.LEFT);
 		
 		
-		JButton AddVoletbutton = new JButton("Add Volet");
-		JButton AddEasyPassbutton = new JButton("Add Easy Pass");
-		JButton ShowListbutton = new JButton("Show List");
-		JButton Quitbtn = new JButton("Quit");
+		JButton AddVoletbutton = new JButton("Top Up Wallet");
+		JButton AddEasyPassbutton = new JButton("Top Up Easy Pass");
+		JButton ShowListbutton = new JButton("Show top up history");
+		JButton Quitbtn = new JButton("Return to main menu");
         
 		
         panel1.setLayout(new GridLayout(6,1));
@@ -122,7 +122,7 @@ public class  TopUp extends MainATM{
 }
    
    public void Show(){ //แก้อันนี้ให้ตรงกับ top up history
-   String output =  "\n------------------------ Show List  ------------------------";
+   String output =  "\n------------------------ Top up history  ------------------------";
    for(int i = 0; i<count;i++){
 		  output += "\nTop Up type : "+Tuphistory[i].getTopuptype();
 		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();

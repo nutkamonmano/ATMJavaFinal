@@ -20,6 +20,8 @@ public class MainATM extends Accounts{
     static JTextField idlogin = new JTextField(10);
     static JPasswordField passlogin = new JPasswordField(10);
 
+    JPanel loginpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
     JFrame menu = new JFrame("Main Menu...");
     JFrame exitframe = new JFrame();
     JFrame startup = new JFrame();
@@ -45,14 +47,13 @@ public class MainATM extends Accounts{
     }
 
     public void exitConfirmation(){
-        Object stringArray[] = {"Quit", "Log out", "Cancel"};
-        int result = JOptionPane.showOptionDialog(exitframe, "Do you want to quit or logout the system", "Quit/Logout",
+        Object stringArray[] = {"Quit", "Cancel"};
+        int result = JOptionPane.showOptionDialog(exitframe, "Do you want to quit the system?", "Quit",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, stringArray, stringArray[0]);
         
         switch (result){
             case JOptionPane.YES_OPTION : System.exit(0); break;
-            case JOptionPane.NO_OPTION : menu.dispose(); OS.createStartupWindow(); break;
-            case JOptionPane.CANCEL_OPTION : break;
+            case JOptionPane.NO_OPTION : break;
         }
     }
 
@@ -110,36 +111,46 @@ public class MainATM extends Accounts{
 
     public void login(){
         //ใช้ JPanel ในการสร้างโครงร่างในการทำ field รับค่าซึ่งใช้ JTextField
-        JPanel loginpanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
         //สร้าง JFrame เพื่อนำทุกอย่างไปไว้ใน Frame
-        LOGIN.setLayout(new GridLayout(3,1));
+        // LOGIN.setLayout(new GridLayout(3,1));
         JPanel panel = new JPanel();
-        loginpanel.setLayout(new GridLayout(5,1));
+        loginpanel.setLayout(new GridLayout(10,1));
         JLabel idLg = new JLabel("Account ID: ");
         JLabel passLg = new JLabel("Password: ");
-
-
-        panel.add(idLg);
-        panel.add(loginpanel.add(idlogin));
-        panel.add(passLg);
-        panel.add(loginpanel.add(passlogin));
-
         JButton loginbtn = new JButton();
+
+
+        loginpanel.add(idLg);
+        loginpanel.add(idlogin);
+        loginpanel.add(passLg);
+        loginpanel.add(passlogin);
+        loginpanel.add(loginbtn);
+
+        
         loginbtn.setText("LOG IN");
-        panel.add(loginbtn);
+        panel.add(loginpanel);
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginbtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 char[] pw1 = passlogin.getPassword();
+                boolean isLoggedIn = false;
                 String pw = new String(pw1);
                 String user = idlogin.getText();
-                if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
-                        A[i].setBalance(bal);
+                for(int i=0; i<countA; i++){
+                    if (user.equals(A[i].getAccID()) && pw.equals(A[i].getPassword())) {
+                        isLoggedIn = true;
                         accNo = i;
-                        loginstatus = true;
-                        OS.menu();
-                        LOGIN.dispose();
+                        break;                      
+                    }else{
+                        isLoggedIn = false;
+                    }
+                }
+
+                if(isLoggedIn==true){
+                    A[accNo].setBalance(bal);
+                    loginstatus = true;
+                    OS.menu();
+                    LOGIN.dispose();
                 }else{
                     attempt++;
                     if(attempt == 4){
@@ -150,8 +161,8 @@ public class MainATM extends Accounts{
                         idlogin.setText("");
                         passlogin.setText("");
                     }
-                }                   
-            }
+                }                     
+            }     
         });
 
         LOGIN.add(panel);
@@ -165,26 +176,27 @@ public class MainATM extends Accounts{
     public void menu(){
         JPanel mpanel = new JPanel();
         JPanel mpanel2 = new JPanel();
-        String mm = "Main Menu";
+        String mm = "Welcome, "+A[accNo].getAccName()+"! What do you want to do?";
         JLabel mainmenu = new JLabel("<html><div style = 'text-align: center'><h1>"+mm+"</h1></div></html>",SwingConstants.LEFT);
         JButton depbtn = new JButton("Deposit/Withdrawal");
         JButton trfbtn = new JButton("Transfer");
         JButton pbbtn = new JButton("Pay Bills");
         JButton tupbtn = new JButton("Top Up");
+        JButton checkbtn = new JButton("Check Balance");
 
         JButton logoutbtn = new JButton("Logout / Exit");
 
         depbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                menu.dispose();
                 d.manu();
+                menu.dispose();
             }
         });
 
         trfbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                JOptionPane.showMessageDialog(null, "Proceed to Transfer Section");
                 b.menu();
+                menu.dispose();
             }
         });
 
@@ -199,6 +211,7 @@ public class MainATM extends Accounts{
         tupbtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 T.menu();
+                menu.dispose();
             }
         });
 
@@ -208,12 +221,23 @@ public class MainATM extends Accounts{
             }
         });
 
-        mpanel.setLayout(new GridLayout(4,2));
+        checkbtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                String out = "Balance\n";
+                out += "Account : "+A[accNo].getAccID()+" | "+A[accNo].getAccName();
+                out += "\nBalance : THB "+A[accNo].getBalance();
+
+                JOptionPane.showMessageDialog(null, out);
+            }
+        });
+
+        mpanel.setLayout(new GridLayout(6,2));
         mpanel2.setLayout(new GridLayout(1,1));
         mpanel.add(depbtn);
         mpanel.add(trfbtn);
         mpanel.add(pbbtn);
         mpanel.add(tupbtn);
+        mpanel.add(checkbtn);
         mpanel2.add(logoutbtn);
         
         menu.add(mainmenu, BorderLayout.NORTH);

@@ -12,6 +12,10 @@ public class Accounts{
         this.password = password;
     }
 
+    Accounts(double balance){
+        this.balance = balance;
+    }
+
     //Attributes and Operators Below
     protected String password;
     public String getPassword() {

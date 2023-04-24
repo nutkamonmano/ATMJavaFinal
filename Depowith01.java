@@ -23,11 +23,11 @@ public class Depowith01 extends MainATM{
 		String Lb ="Main menu";
 		JLabel label = new JLabel("<html><div style = 'text -align:center'><h1>"+Lb+"</h1></html>",SwingConstants.LEFT);
 
-		JButton depobutton = new JButton("DEPOSIT");
-		JButton shdepobutton = new JButton("Showdeposit");
-		JButton withbutton = new JButton("WITHDRAW");
-		JButton shwithbutton = new JButton("SHOWWITHDRAW");
-		JButton exbutton = new JButton("Quit");
+		JButton depobutton = new JButton("Deposit");
+		JButton shdepobutton = new JButton("Show deposit history");
+		JButton withbutton = new JButton("Withdraw");
+		JButton shwithbutton = new JButton("Show withdraw history");
+		JButton exbutton = new JButton("Return to main menu");
 		
 		panel1.setLayout(new GridLayout(5,1));
 
@@ -91,7 +91,7 @@ public class Depowith01 extends MainATM{
 		while(depoIN<0 || depoIN<99 || depoIN%100 != 0){
 			depoIN = Integer.parseInt(JOptionPane.showInputDialog("How much do you want to deposit to your account?"));
 			if(depoIN < 0 || depoIN < 99 || depoIN%100 != 0  ){
-				JOptionPane.showMessageDialog(null,"Unable to make a transaction >please re-enter<");
+				JOptionPane.showMessageDialog(null,"Unable to make a transaction. Please try again.");
 			}else{
 				int res = JOptionPane.showConfirmDialog(null, "Are you sure to deposit of THB "+depoIN+" ?", "Deposit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 				if (res == JOptionPane.YES_OPTION){

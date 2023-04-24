@@ -4,10 +4,18 @@ public class Tranferhis extends Accounts{
     public double tranferin;
     //คงเหลือ
     public double bathtranfer;
+    public String destination;
 
-    public Tranferhis(String bankdate1,double tranfer1,double bathtranfer1){
+    public String getDestination() {
+        return destination;
+    }
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    public Tranferhis(String bankdate1,double tranfer1, String destination, double bathtranfer1){
         this.bankdate = bankdate1;
         this.tranferin = tranfer1;
+        this.destination = destination;
         this.bathtranfer = bathtranfer1; 
    }
     public Tranferhis(double tranfer1,double bathtranfer1){

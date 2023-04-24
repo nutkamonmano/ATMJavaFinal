@@ -33,7 +33,7 @@ public class PayBill extends MainATM {
         JButton utilsbtn = new JButton("Utility bills");
         JButton phoneandinternetbtn = new JButton("Phone/Internet Bills");
         JButton history = new JButton("Show bill pay history");
-        JButton returnbtn = new JButton("Return to home");
+        JButton returnbtn = new JButton("Return to main menu");
 
         finebtn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
