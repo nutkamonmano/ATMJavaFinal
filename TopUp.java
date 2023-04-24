@@ -55,7 +55,6 @@ public class  TopUp extends MainATM{
 
 	AddWalletbutton.addActionListener(new ActionListener(){
 	  public void actionPerformed(ActionEvent e){
-			menu.dispose();
 			T.AddWallet();
 		   
 	  }
@@ -63,7 +62,6 @@ public class  TopUp extends MainATM{
 
 	AddEasyPassbutton.addActionListener(new ActionListener(){
 	  public void actionPerformed(ActionEvent e){
-			menu.dispose();
 			T.AddEasyPass();
 		   
 	  }
@@ -99,7 +97,7 @@ public class  TopUp extends MainATM{
 	 double inputw = 0;
 	 String inputwnumber = "";
 	 do{
-	 inputwnumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number : \nInput your Wallet number :");
+	 inputwnumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number \nInput your Wallet number :");
 	 if(inputwnumber.length() == 10 && inputwnumber.length() > 0){ //เบอร์เท่ากับ 10 และ เบอร์มากกว่า 0
 	 }else{
 			JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");//ไม่ให้ใส่อีกรอบ
@@ -129,7 +127,7 @@ public class  TopUp extends MainATM{
 	 double inpute;
 	 String inputenumber = "";
 	 do{
-		inputenumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number : \nInput your Easy Pass number :");
+		inputenumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number \nInput your Easy Pass number :");
 		if(inputenumber.length() == 10 && inputenumber.length() > 0){ //เบอร์เท่ากับ 10 และ เบอร์มากกว่า 0
 		}else{
 			   JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");//ไม่ให้ใส่อีกรอบ
@@ -148,6 +146,7 @@ public class  TopUp extends MainATM{
 	   String topuptype = "Top Up Easy Pass number "+inputenumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inpute, money);
         count ++;
+		
 	}else{
 		JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
 	}
@@ -162,7 +161,7 @@ public class  TopUp extends MainATM{
 		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();
           output += "\nAmount : "+Tuphistory[i].getTopup();
 		  output += "\nLast Balance : "+Tuphistory[i].getLastbal();
-		  output += "\n\n----------------------------------------------------------------";
+		  output += "\n\n------------------------------------------------------------------------";
           
    }          
 		  JOptionPane.showMessageDialog(null,output);
