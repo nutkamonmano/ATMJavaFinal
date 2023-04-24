@@ -1,17 +1,10 @@
 class TopUpHistory{
-	public String topupdate;
-	public double topup;
-	public double lastbal;
-	public String topuptype;
+	public String topupdate;//วันเวลา
+	public double topup;//เติมเงิน
+	public double lastbal;//ยอดเินล่าสุด
+	public String topuptype;//ประเภท
 
-	public String getTopuptype() {
-		return topuptype;
-	}
-
-	public void setTopuptype(String topuptype) {
-		this.topuptype = topuptype;
-	}
-
+	
 	TopUpHistory(String topupdate, String topuptype, double topup, double lastbal){
 		this.topupdate = topupdate;
 		this.topuptype = topuptype;
@@ -25,6 +18,12 @@ class TopUpHistory{
 }
     public String getTopupdate(){
     return topupdate;
+}
+    public String getTopuptype() {
+	return topuptype;
+}
+    public void setTopuptype(String topuptype) {
+	this.topuptype = topuptype;
 }
     public void setTopup(double topup){
 	this.topup = topup;
