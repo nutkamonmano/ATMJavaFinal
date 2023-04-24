@@ -264,8 +264,8 @@ public class PayBill extends MainATM {
                 String phonenumber = "";
                 double amount =0;
                 do{
-                    phonenumber = JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease provide your phone number :");
-                    if(phonenumber.length() == 9 && phonenumber.length() > 0){
+                    phonenumber = JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease provide your 10-digit phone number :");
+                    if(phonenumber.length() == 10 && phonenumber.length() > 0){
                         amount = Double.parseDouble(JOptionPane.showInputDialog("**THIS IS POSTPAID NUMBER BILLS ONLY**\nPlease enter your amonut to pay :"));
                         if(amount>0){
                             int ans = JOptionPane.showConfirmDialog(null, "Are you sure to pay "+amount+" baht to number "+phonenumber+" bill ?", "Payment confirmation", JOptionPane.YES_NO_OPTION);
@@ -280,8 +280,10 @@ public class PayBill extends MainATM {
                                 JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
                             }
                         }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");
                     }
-                }while((phonenumber.length()!=9 && phonenumber.length()<0 && amount<0));
+                }while((phonenumber.length()!=10 && phonenumber.length()<0 && amount<0));
             }
         });
 
