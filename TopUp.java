@@ -77,20 +77,20 @@ public class  TopUp extends MainATM{
 
 	  Quitbtn.addActionListener(new ActionListener(){
 	  public void actionPerformed(ActionEvent e){
-			menu.dispose();
+		OS.menu();
 	}	
 });
 
 
 }
 
-  public String gettopupdate(){
-	Calendar d = Calendar.getInstance();
-	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
-	String topupdate = f.format(d.getTime());
+  //public String gettopupdate(){
+	//Calendar d = Calendar.getInstance();
+	//SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
+	//String topupdate = f.format(d.getTime());
 
-	return topupdate; 
-  }
+	//return topupdate; 
+  //}
 
 
   public void AddWallet(){
@@ -113,6 +113,11 @@ public class  TopUp extends MainATM{
    if(ch == JOptionPane.YES_OPTION){
 	   A[accNo].topup(inputw);
 	   double money = A[accNo].getBalance();
+
+	   Calendar d = Calendar.getInstance();
+	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
+	String topupdate = f.format(d.getTime());
+
 	   String topuptype = "Top Up Wallet number "+inputwnumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inputw, money);
         count ++;
@@ -143,10 +148,14 @@ public class  TopUp extends MainATM{
    if(ch == JOptionPane.YES_OPTION){
 	   A[accNo].topup(inpute);
 	   double money = A[accNo].getBalance();
+
+	   Calendar d = Calendar.getInstance();
+	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
+	String topupdate = f.format(d.getTime());
+ 
 	   String topuptype = "Top Up Easy Pass number "+inputenumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inpute, money);
         count ++;
-		
 	}else{
 		JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
 	}
