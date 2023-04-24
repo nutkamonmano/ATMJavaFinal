@@ -7,14 +7,84 @@ import java.text.SimpleDateFormat;
 
 public class  TopUp extends MainATM{
   static int size = 100;
-  
-  
   static TopUpHistory []Tuphistory = new TopUpHistory[size];
   static int count=0;
   static double money = 0;
   static double lastbal = 0;
   static String topupdate;
 
+  public static void main(String[] args) {  
+	T.menu();
+	
+ }
+
+
+ JFrame menu = new JFrame("Top Up Menu");
+
+
+ public void menu(){
+	JPanel panel1 = new JPanel(); 
+	String lb = "What do you want to top up?";
+	JLabel label = new JLabel("<html><div style = 'text-align: center'><h1>"+lb+"</h1></div></html>",SwingConstants.LEFT);
+	
+	
+	JButton AddWalletbutton = new JButton("Top Up Wallet");//ปุ่มเติม Wallet
+	JButton AddEasyPassbutton = new JButton("Top Up Easy Pass");//ปุ่มเติม Easy Pass
+	JButton ShowHistorybutton = new JButton("Show top up history");//ปุ่มโชว์ประวัติ
+	JButton Quitbtn = new JButton("Return to main menu");//ปุ่มออก
+	
+	
+	panel1.setLayout(new GridLayout(6,1));
+
+	
+	panel1.add(AddWalletbutton); 
+	panel1.add(AddEasyPassbutton);
+	panel1.add(ShowHistorybutton);
+	panel1.add(Quitbtn);
+
+	
+	menu.add(label,BorderLayout.NORTH);
+	menu.add(panel1,BorderLayout.CENTER);
+
+	
+	menu.setSize(300,300);
+	menu.setLocationRelativeTo(null);
+	menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	menu.setVisible(true);
+
+
+	AddWalletbutton.addActionListener(new ActionListener(){
+	  public void actionPerformed(ActionEvent e){
+			menu.dispose();
+			T.AddWallet();
+		   
+	  }
+	});	
+
+	AddEasyPassbutton.addActionListener(new ActionListener(){
+	  public void actionPerformed(ActionEvent e){
+			menu.dispose();
+			T.AddEasyPass();
+		   
+	  }
+	});
+	
+	ShowHistorybutton.addActionListener(new ActionListener(){
+	  public void actionPerformed(ActionEvent e){
+			T.Show();
+		   
+	  }
+	});
+
+
+	  Quitbtn.addActionListener(new ActionListener(){
+	  public void actionPerformed(ActionEvent e){
+			menu.dispose();
+	}	
+});
+
+
+}
 
   public String gettopupdate(){
 	Calendar d = Calendar.getInstance();
@@ -23,8 +93,6 @@ public class  TopUp extends MainATM{
 
 	return topupdate; 
   }
-
-  JFrame menu = new JFrame("Top Up Menu");
 
 
   public void AddWallet(){
@@ -42,18 +110,21 @@ public class  TopUp extends MainATM{
 	 if(inputw<=0 || inputw>A[accNo].getBalance()){       //การเติม Wallet น้อยกว่า 0 หรือ มากกว่ายอดเงินในบัญชีไม่ได้
 		JOptionPane.showMessageDialog(null,"connot");
 	  }else{
-		double res = JOptionPane.showConfirmDialog(null,"Are you sure to Top up Wallet "+inputw+"THB from your account?","Wallet Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+		double ch = JOptionPane.showConfirmDialog(null,"Are you sure to Top up Wallet "+inputw+"THB from your account?","Wallet Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 	  
-   if(res == JOptionPane.YES_OPTION){
+   if(ch == JOptionPane.YES_OPTION){
 	   A[accNo].topup(inputw);
 	   double money = A[accNo].getBalance();
 	   String topuptype = "Top Up Wallet number "+inputwnumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inputw, money);
         count ++;
-		T.menu(); 
+	}else{
+		JOptionPane.showMessageDialog(null, "You've cancelled your Top up...");
+	} 
    }
  }
-}
+
+
   public void AddEasyPass(){
 	 double inpute;
 	 String inputenumber = "";
@@ -69,89 +140,23 @@ public class  TopUp extends MainATM{
 	   if(inpute<=0 || inpute>A[accNo].getBalance()){       //การเติม Easy Pass น้อยกว่า 0 หรือ มากกว่ายอดเงินในบัญชีไม่ได้
 		JOptionPane.showMessageDialog(null,"connot");
 	  }else{
-		double res = JOptionPane.showConfirmDialog(null,"Are you sure to Top up Easy Pass "+inpute+"THB from your account?","Easy Pass Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+		double ch = JOptionPane.showConfirmDialog(null,"Are you sure to Top up Easy Pass "+inpute+"THB from your account?","Easy Pass Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 	  
-   if(res == JOptionPane.YES_OPTION){
+   if(ch == JOptionPane.YES_OPTION){
 	   A[accNo].topup(inpute);
 	   double money = A[accNo].getBalance();
 	   String topuptype = "Top Up Easy Pass number "+inputenumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inpute, money);
         count ++;
-		T.menu();
+	}else{
+		JOptionPane.showMessageDialog(null, "You've cancelled your payment...");
+	}
   }
  }
-}
- public static void main(String[] args) {  
-		T.menu();
-		
- 	}
 
-	public void menu(){
-		JPanel panel1 = new JPanel(); 
-		String lb = "What do you want to top up?";
-		JLabel label = new JLabel("<html><div style = 'text-align: center'><h1>"+lb+"</h1></div></html>",SwingConstants.LEFT);
-		
-		
-		JButton AddWalletbutton = new JButton("Top Up Wallet");//ปุ่มเติม Wallet
-		JButton AddEasyPassbutton = new JButton("Top Up Easy Pass");//ปุ่มเติม Easy Pass
-		JButton ShowHistorybutton = new JButton("Show top up history");//ปุ่มโชว์ประวัติ
-		JButton Quitbtn = new JButton("Return to main menu");//ปุ่มออก
-        
-		
-        panel1.setLayout(new GridLayout(6,1));
-
-		
-		panel1.add(AddWalletbutton); 
-		panel1.add(AddEasyPassbutton);
-		panel1.add(ShowHistorybutton);
-		panel1.add(Quitbtn);
-
-		
-		menu.add(label,BorderLayout.NORTH);
-		menu.add(panel1,BorderLayout.CENTER);
-
-		
-		menu.setSize(300,300);
-        menu.setLocationRelativeTo(null);
-		menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menu.setVisible(true);
-
-
-		AddWalletbutton.addActionListener(new ActionListener(){
-          public void actionPerformed(ActionEvent e){
-			    menu.dispose();
-				T.AddWallet();
-               
-		  }
-		});	
-
-		AddEasyPassbutton.addActionListener(new ActionListener(){
-          public void actionPerformed(ActionEvent e){
-			    menu.dispose();
-				T.AddEasyPass();
-               
-		  }
-		});
-		
-		ShowHistorybutton.addActionListener(new ActionListener(){
-          public void actionPerformed(ActionEvent e){
-				T.Show();
-               
-		  }
-		});
-
-
-		  Quitbtn.addActionListener(new ActionListener(){
-          public void actionPerformed(ActionEvent e){
-			    menu.dispose();
-		}	
-	});
-
-
-}
-   
-   public void Show(){//โชว์ประวัติการเติม
-   String output =  "\n------------------------ Top up history  ------------------------";
+ 
+   public void Show(){
+   String output =  "\n------------------------ Top up history  ------------------------";//โชว์ประวัติการเติม
    for(int i = 0; i<count;i++){
 		  output += "\nTop Up type : "+Tuphistory[i].getTopuptype();
 		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();
