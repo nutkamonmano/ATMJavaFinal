@@ -76,8 +76,9 @@ public class  TopUp extends MainATM{
 
 
 	  Quitbtn.addActionListener(new ActionListener(){
-	  public void actionPerformed(ActionEvent e){
-		OS.menu();
+	  public void actionPerformed(ActionEvent e){ 
+		    OS.menu();
+		    menu.dispose();	
 	}	
 });
 
