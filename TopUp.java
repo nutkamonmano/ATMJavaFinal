@@ -85,14 +85,6 @@ public class  TopUp extends MainATM{
 
 }
 
-  //public String gettopupdate(){
-	//Calendar d = Calendar.getInstance();
-	//SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
-	//String topupdate = f.format(d.getTime());
-
-	//return topupdate; 
-  //}
-
 
   public void AddWallet(){
 	 double inputw = 0;
