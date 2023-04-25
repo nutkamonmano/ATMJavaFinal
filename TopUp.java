@@ -157,7 +157,7 @@ public class  TopUp extends MainATM{
 
  
    public void Show(){
-   String output =  "\n------------------------ Top up history  ------------------------";//โชว์ประวัติการเติม
+   String output =  "\n------------------------ Top up history  ------------------------";//โชว์ประวัติการเติมเงิน
    for(int i = 0; i<count;i++){
 		  output += "\nTop Up type : "+Tuphistory[i].getTopuptype();
 		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();
