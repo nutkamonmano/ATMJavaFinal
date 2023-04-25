@@ -128,7 +128,7 @@ public class Minesweeper implements ActionListener{
 		
 		
 		//สร้างที่เก็บรูปโดยใช้ ImgeIcon เเละ เเสดงเป็นปุ่มผ่าน JButton
-		ImageIcon iconbubu = new ImageIcon("D:\\Java1\\bu.png");
+		ImageIcon iconbubu = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\ATMJavaFinal\\Java1\\bu.png");
 		flag = new JButton(iconbubu);
 		flag.setSize(80,80);
 		flag.setForeground(Color.RED);
@@ -337,7 +337,7 @@ public class Minesweeper implements ActionListener{
 							if(buttons[i][j].getText().equals(""))
 							{
 								
-								ImageIcon iconbu = new ImageIcon("D:\\Java1\\bu.png");
+								ImageIcon iconbu = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\ATMJavaFinal\\Java1\\bu.png");
 								Image image = iconbu.getImage();
 								Image scalImage = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 								ImageIcon scalIcon = new ImageIcon(scalImage);
@@ -515,7 +515,7 @@ public class Minesweeper implements ActionListener{
 					if(j==xPositions.get(count) && i==yPositions.get(count))
 					{
 						
-						ImageIcon iconpoo = new ImageIcon("D:\\poo.png");
+						ImageIcon iconpoo = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\ATMJavaFinal\\Java1\\poo.png");
 								Image imagepoo = iconpoo.getImage();
 								Image scalImagepoo = imagepoo.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 								ImageIcon scalIconpoo = new ImageIcon(scalImagepoo);
