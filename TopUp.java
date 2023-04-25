@@ -55,7 +55,6 @@ public class  TopUp extends MainATM{
 
 	AddWalletbutton.addActionListener(new ActionListener(){
 	  public void actionPerformed(ActionEvent e){
-			menu.dispose();
 			T.AddWallet();
 		   
 	  }
@@ -63,7 +62,6 @@ public class  TopUp extends MainATM{
 
 	AddEasyPassbutton.addActionListener(new ActionListener(){
 	  public void actionPerformed(ActionEvent e){
-			menu.dispose();
 			T.AddEasyPass();
 		   
 	  }
@@ -78,28 +76,29 @@ public class  TopUp extends MainATM{
 
 
 	  Quitbtn.addActionListener(new ActionListener(){
-	  public void actionPerformed(ActionEvent e){
-			menu.dispose();
+	  public void actionPerformed(ActionEvent e){ 
+		    OS.menu();
+		    menu.dispose();	
 	}	
 });
 
 
 }
 
-  public String gettopupdate(){
-	Calendar d = Calendar.getInstance();
-	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
-	String topupdate = f.format(d.getTime());
+  //public String gettopupdate(){
+	//Calendar d = Calendar.getInstance();
+	//SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
+	//String topupdate = f.format(d.getTime());
 
-	return topupdate; 
-  }
+	//return topupdate; 
+  //}
 
 
   public void AddWallet(){
 	 double inputw = 0;
 	 String inputwnumber = "";
 	 do{
-	 inputwnumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number : \nInput your Wallet number :");
+	 inputwnumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number \nInput your Wallet number :");
 	 if(inputwnumber.length() == 10 && inputwnumber.length() > 0){ //เบอร์เท่ากับ 10 และ เบอร์มากกว่า 0
 	 }else{
 			JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");//ไม่ให้ใส่อีกรอบ
@@ -115,6 +114,11 @@ public class  TopUp extends MainATM{
    if(ch == JOptionPane.YES_OPTION){
 	   A[accNo].topup(inputw);
 	   double money = A[accNo].getBalance();
+
+	   Calendar d = Calendar.getInstance();
+	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
+	String topupdate = f.format(d.getTime());
+
 	   String topuptype = "Top Up Wallet number "+inputwnumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inputw, money);
         count ++;
@@ -129,7 +133,7 @@ public class  TopUp extends MainATM{
 	 double inpute;
 	 String inputenumber = "";
 	 do{
-		inputenumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number : \nInput your Easy Pass number :");
+		inputenumber = JOptionPane.showInputDialog("Please provide your 10-digit phone number \nInput your Easy Pass number :");
 		if(inputenumber.length() == 10 && inputenumber.length() > 0){ //เบอร์เท่ากับ 10 และ เบอร์มากกว่า 0
 		}else{
 			   JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");//ไม่ให้ใส่อีกรอบ
@@ -145,6 +149,11 @@ public class  TopUp extends MainATM{
    if(ch == JOptionPane.YES_OPTION){
 	   A[accNo].topup(inpute);
 	   double money = A[accNo].getBalance();
+
+	   Calendar d = Calendar.getInstance();
+	SimpleDateFormat f = new SimpleDateFormat("dd MMMM YYYY HH:mm:ss");//กำหนดรูปแบบวันเวลา
+	String topupdate = f.format(d.getTime());
+ 
 	   String topuptype = "Top Up Easy Pass number "+inputenumber;
 	   Tuphistory[count] = new TopUpHistory(topupdate, topuptype, inpute, money);
         count ++;
@@ -162,7 +171,7 @@ public class  TopUp extends MainATM{
 		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();
           output += "\nAmount : "+Tuphistory[i].getTopup();
 		  output += "\nLast Balance : "+Tuphistory[i].getLastbal();
-		  output += "\n\n----------------------------------------------------------------";
+		  output += "\n\n------------------------------------------------------------------------";
           
    }          
 		  JOptionPane.showMessageDialog(null,output);
