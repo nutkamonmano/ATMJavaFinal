@@ -131,7 +131,7 @@ public class Tranfer01 extends MainATM {
     for(int i=0 ; i<count;i++){
         output += "\nTRANSFER THB "+a[i].getTranfer();
         output +="\nDate : "+a[i].getBankdate();
-        output +="\nTo : "+a[i].getDestination()+" ("+a[i].getDestination()+")";
+        output +="\nTo : "+a[i].getDestination();
         output +="\nLast balance since transfer : THB "+a[i].getBathtranfer();
         output +="\n********************************************************";
     }
