@@ -95,7 +95,7 @@ public class  TopUp extends MainATM{
 	 }else{
 			JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");//ไม่ให้ใส่อีกรอบ
 		}
-	}while(inputwnumber.length()!=10);//Loop while เบอร์เท่ากับ 10 ตัวให้เด้งออก
+	}while(inputwnumber.length()!=10);//Loop do while เบอร์เท่ากับ 10 ตัวให้เด้งออก
 
 	 inputw = Double.parseDouble(JOptionPane.showInputDialog("Input amount you want to top up to your Wallet :"));
 	 if(inputw<=0 || inputw>A[accNo].getBalance()){       //การเติม Wallet น้อยกว่า 0 หรือ มากกว่ายอดเงินในบัญชีไม่ได้
@@ -130,7 +130,7 @@ public class  TopUp extends MainATM{
 		}else{
 			   JOptionPane.showMessageDialog(null, "Unable to make a transaction. Please try again.");//ไม่ให้ใส่อีกรอบ
 		   }
-	   }while(inputenumber.length()!=10);//Loop while เบอร์เท่ากับ 10 ตัวให้เด้งออก
+	   }while(inputenumber.length()!=10);//Loop do while เบอร์เท่ากับ 10 ตัวให้เด้งออก
 
        inpute = Double.parseDouble(JOptionPane.showInputDialog("Input amount you want to top up to your Easy pass :"));
 	   if(inpute<=0 || inpute>A[accNo].getBalance()){       //การเติม Easy Pass น้อยกว่า 0 หรือ มากกว่ายอดเงินในบัญชีไม่ได้
@@ -157,7 +157,7 @@ public class  TopUp extends MainATM{
 
  
    public void Show(){
-   String output =  "\n------------------------ Top up history  ------------------------";//โชว์ประวัติการเติม
+   String output =  "\n------------------------ Top up history  ------------------------";//โชว์ประวัติการเติมเงิน
    for(int i = 0; i<count;i++){
 		  output += "\nTop Up type : "+Tuphistory[i].getTopuptype();
 		  output += "\nTop Up date : "+Tuphistory[i].getTopupdate();
