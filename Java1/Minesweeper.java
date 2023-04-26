@@ -25,7 +25,7 @@ public class Minesweeper implements ActionListener{
 	@SuppressWarnings("rawtypes")
 	JComboBox choice; 
 	//Drop Down to choose beginner, intermediate or hard
-	String[] options= {"9x9","16x16","22x22", "Modify"}; //Drop Down List options
+	String[] options= {"9x9","16x16","22x22", "Modify"}; //Drop Down List options กำหนดในarray
 	
 	int size;
 	int bombs;
@@ -64,8 +64,8 @@ public class Minesweeper implements ActionListener{
 		
 		for(int i=0;i<bombs;i++)
 		{
-			int randomX=random.nextInt(size);
-			int randomY=random.nextInt(size);
+			int randomX=random.nextInt(size);//คือการสุ่มระเบิดแนวนอน
+			int randomY=random.nextInt(size);//คือการสุ่มระเบิดแนวตั้ง
 
 			xPositions.add(randomX);
 			yPositions.add(randomY);
@@ -466,20 +466,20 @@ public class Minesweeper implements ActionListener{
 		}
 	}
 	
-	public void check(int y, int x)
+	public void check(int y, int x)//นี้เป็นฟังก์ชันที่ถูกเรียกเมื่อผู้เล่นคลิกที่ปุ่มบนบอร์ดเกม และมีการตรวจสอบว่าตำแหน่งนั้นมีระเบิดหรือไม่  
 	{		
 		boolean over=false;
-		if(solution[y][x]==(size+1))
+		if(solution[y][x]==(size+1))//ถ้ามีระเบิด จะเรียกฟังก์ชัน gameOver() เพื่อจบเกม
 		{
 			gameOver(false);
 			over=true;
 		}
 		
-		if(!over)
+		if(!over)//ถ้าไม่มีระเบิด จะเรียกฟังก์ชัน getColor(y, x) เพื่อเปลี่ยนสีปุ่มและแสดงตัวเลขบนปุ่ม
 		{
 			getColor(y,x);
 			
-			if(solution[y][x]==0)
+			if(solution[y][x]==0)//ถ้าตัวเลขบนปุ่มเป็น 0 จะเรียกฟังก์ชัน display() เพื่อแสดงปุ่มที่ติดกันที่ไม่มีระเบิดเปิดอยู่ทั้งหมด
 			{
 				xZero=x;
 				yZero=y;
@@ -488,44 +488,43 @@ public class Minesweeper implements ActionListener{
 				
 				display();
 			}
-			checkWinner();
+			checkWinner();//เมื่อเปิดปุ่มแล้ว จะเรียกฟังก์ชัน checkWinner() เพื่อตรวจสอบว่าเกมจบหรือยัง
 		}
 	}
 	
-	public void gameOver(boolean won)
+	public void gameOver(boolean won)//
 	{
-		if(!won)
+		if(!won)//ถ้าค่า won เป็น false จะตั้งสีของ textfield เป็นสีแดงและตั้งข้อความ "Game Over!" ใน textfield
 		{
 			textfield.setForeground(Color.RED);
 			textfield.setText("Game Over!");
 		}
-		else 
+		else //ถ้าค่า won เป็น true จะตั้งสีของ textfield เป็นสีเขียวและตั้งข้อความ "You Win!" ใน textfield
 		{
 			textfield.setForeground(Color.GREEN);
 			textfield.setText("You Win!");
 		}
-		for(int i=0; i<buttons.length; i++)
+		for(int i=0; i<buttons.length; i++)//นำเอาปุ่มทั้งหมดในตาราง buttons มาดำเนินการต่อโดยใช้ลูป for
 		{
-			for(int j=0; j<buttons[0].length; j++)
+			for(int j=0; j<buttons[0].length; j++)//นำเอาปุ่มทั้งหมดในตาราง buttons มาดำเนินการต่อโดยใช้ลูป for
 			{
 				buttons[i][j].setBackground(null);
-				buttons[i][j].setEnabled(false);
+				buttons[i][j].setEnabled(false);//ในแต่ละปุ่มจะตั้งค่า background เป็น null และ setEnabled(false)
 				for(int count=0; count<xPositions.size(); count++)
 				{
 					if(j==xPositions.get(count) && i==yPositions.get(count))
-					{
-						
+					{//จะตรวจสอบว่าปุ่มนี้ตรงกับตำแหน่งที่มีตัวเลขเท่ากับ ระเบิด หรือไม่  
+					 //ถ้าใช่จะตั้งค่า background เป็นสีดำ และใช้ไอคอนรูปภาพของสัญลักษณ์ที่กำหนดในไฟล์ 
 						ImageIcon iconpoo = new ImageIcon("C:\\Users\\user\\Documents\\GitHub\\ATMJavaFinal\\Java1\\poo.png");
 								Image imagepoo = iconpoo.getImage();
-								Image scalImagepoo = imagepoo.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+								Image scalImagepoo = imagepoo.getScaledInstance(30, 30, Image.SCALE_SMOOTH);//ปรับขนาดของรูปภาพให้มีขนาด 30x30 พิกเซล
 								ImageIcon scalIconpoo = new ImageIcon(scalImagepoo);
 								buttons[i][j].setBackground(Color.BLACK);
 								buttons[i][j].setIcon(scalIconpoo);
-								buttons[i][j].setText("");
-								flagged[i][j]=true;
+								buttons[i][j].setText("");//และเปลี่ยนตัวอักษรบนปุ่มเป็นช่องว่าง
+								flagged[i][j]=true;//กำหนดให้ flagged[i][j] เป็น true
 
-						//buttons[i][j].setBackground(Color.BLACK);
-						//buttons[i][j].setText("*");
+					
 					}
 				}
 			}
@@ -533,7 +532,7 @@ public class Minesweeper implements ActionListener{
 		flag.setEnabled(false);
 	}
 	
-	public void checkWinner()
+	public void checkWinner()//ใช้ตรวจสอบว่าผู้เล่นชนะเกมหรือยัง โดยการนับจำนวน 
 	{
 		int buttonsleft=0;
 		
@@ -545,7 +544,7 @@ public class Minesweeper implements ActionListener{
 					buttonsleft++;
 			}
 		}
-		if(buttonsleft==bombs)
+		if(buttonsleft==bombs)//ถ้าจำนวนปุ่มที่เหลืออยู่เท่ากับจำนวนระเบิดทั้งหมดในเกม ก็จะเรียกใช้ฟังก์ชัน gameOver(true) เพื่อแสดงข้อความว่า "You Win!"
 			gameOver(true);
 	}
 	public void display()
@@ -583,6 +582,8 @@ public class Minesweeper implements ActionListener{
 						// IMP* Explanation of how it works:
 						//If a button is 0 but is empty around, means it needs to reveal everything around so display is called again
 						//The if reveals everything around, the else checks which button needs to reveal everything around it if its a zero.
+						//ถ้ากดเจอเลข 0 ก้จะเปิดเลขรอบๆ
+						//if เปิดเผยทุกอย่างที่อยู่รอบ ๆ ส่วนอื่น ๆ จะตรวจสอบว่าปุ่มใดจำเป็นต้องเปิดเผยทุกอย่างที่อยู่รอบ ๆ หากเป็นศูนย์
 						if(y-1>=0)
 						{
 							if(buttons[y-1][x].getText().equals("") || buttons[y-1][x].getText().equals("1>"))
@@ -667,7 +668,7 @@ public class Minesweeper implements ActionListener{
 		}
 	}
 	
-	public void getColor(int y, int x)
+	public void getColor(int y, int x) //กำหนดสีของปุ้ม
 	{		
 		if(solution[y][x]==0)
 			buttons[y][x].setEnabled(false);
